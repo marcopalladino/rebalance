@@ -1085,6 +1085,15 @@ ul {
         display: flex;
     }
 
+    .logo img {
+        height: 100px;
+    }
+
+    .footer-logo {
+        height: 120px;
+        margin: 0 auto 16px;
+    }
+
     .nav {
         position: fixed;
         top: 0;
