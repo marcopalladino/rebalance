@@ -27,10 +27,10 @@
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-display: 'Playfair Display', Georgia, serif;
 
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-    --shadow-xl: 0 16px 48px rgba(0,0,0,0.15);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
 
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -41,7 +41,9 @@
 }
 
 /* --- Reset & Base --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -74,7 +76,9 @@ a {
     transition: var(--transition);
 }
 
-ul { list-style: none; }
+ul {
+    list-style: none;
+}
 
 .container {
     width: 100%;
@@ -102,15 +106,15 @@ ul { list-style: none; }
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(255,255,255,0.92);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     transition: var(--transition);
 }
 
 .header.scrolled {
-    background: rgba(255,255,255,0.97);
+    background: rgba(255, 255, 255, 0.97);
     box-shadow: var(--shadow-sm);
 }
 
@@ -122,7 +126,7 @@ ul { list-style: none; }
 }
 
 .logo img {
-    height: 48px;
+    height: 130px;
     width: auto;
 }
 
@@ -218,12 +222,10 @@ ul { list-style: none; }
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(26, 138, 125, 0.65) 0%,
-        rgba(19, 107, 97, 0.5) 40%,
-        rgba(201, 74, 42, 0.25) 100%
-    );
+    background: linear-gradient(135deg,
+            rgba(26, 138, 125, 0.65) 0%,
+            rgba(19, 107, 97, 0.5) 40%,
+            rgba(201, 74, 42, 0.25) 100%);
     z-index: 1;
 }
 
@@ -241,7 +243,7 @@ ul { list-style: none; }
     font-weight: 700;
     line-height: 1.05;
     margin-bottom: 16px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 .hero-title span {
@@ -285,7 +287,7 @@ ul { list-style: none; }
     display: block;
     width: 28px;
     height: 44px;
-    border: 2px solid rgba(255,255,255,0.6);
+    border: 2px solid rgba(255, 255, 255, 0.6);
     border-radius: 14px;
     position: relative;
 }
@@ -294,7 +296,7 @@ ul { list-style: none; }
     content: '';
     width: 4px;
     height: 10px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 2px;
     position: absolute;
     top: 6px;
@@ -304,8 +306,17 @@ ul { list-style: none; }
 }
 
 @keyframes scrollBounce {
-    0%, 100% { top: 6px; opacity: 1; }
-    50% { top: 22px; opacity: 0.3; }
+
+    0%,
+    100% {
+        top: 6px;
+        opacity: 1;
+    }
+
+    50% {
+        top: 22px;
+        opacity: 0.3;
+    }
 }
 
 /* --- BUTTONS --- */
@@ -333,7 +344,7 @@ ul { list-style: none; }
     background: #d49530;
     border-color: #d49530;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(232,168,56,0.3);
+    box-shadow: 0 6px 20px rgba(232, 168, 56, 0.3);
 }
 
 .btn--secondary {
@@ -409,7 +420,7 @@ ul { list-style: none; }
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: rgba(232,168,56,0.15);
+    background: rgba(232, 168, 56, 0.15);
 }
 
 .eventi::after {
@@ -420,7 +431,7 @@ ul { list-style: none; }
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .eventi .section-tag {
@@ -432,7 +443,7 @@ ul { list-style: none; }
 }
 
 .eventi .section-subtitle {
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .eventi-grid {
@@ -443,10 +454,10 @@ ul { list-style: none; }
 }
 
 .evento-card {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-lg);
     padding: 28px;
     display: flex;
@@ -460,23 +471,34 @@ ul { list-style: none; }
     animation: cardIn 0.6s ease forwards;
 }
 
-.evento-card:nth-child(1) { animation-delay: 0.1s; }
-.evento-card:nth-child(2) { animation-delay: 0.2s; }
-.evento-card:nth-child(3) { animation-delay: 0.3s; }
+.evento-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.evento-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.evento-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
 
 @keyframes cardIn {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .evento-card:hover {
-    background: rgba(255,255,255,0.18);
+    background: rgba(255, 255, 255, 0.18);
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .evento-card.next {
-    background: rgba(232,168,56,0.2);
-    border-color: rgba(232,168,56,0.4);
+    background: rgba(232, 168, 56, 0.2);
+    border-color: rgba(232, 168, 56, 0.4);
 }
 
 .evento-badge {
@@ -554,7 +576,7 @@ ul { list-style: none; }
 
 .eventi-cta {
     text-align: center;
-    color: rgba(255,255,255,0.85);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 1rem;
 }
 
@@ -720,10 +742,21 @@ ul { list-style: none; }
     box-shadow: var(--shadow-md);
 }
 
-.percorso-step[data-step="2"] .step-icon { border-color: #2da898; }
-.percorso-step[data-step="3"] .step-icon { border-color: var(--gold); }
-.percorso-step[data-step="4"] .step-icon { border-color: var(--coral); }
-.percorso-step[data-step="5"] .step-icon { border-color: #7c6bb5; }
+.percorso-step[data-step="2"] .step-icon {
+    border-color: #2da898;
+}
+
+.percorso-step[data-step="3"] .step-icon {
+    border-color: var(--gold);
+}
+
+.percorso-step[data-step="4"] .step-icon {
+    border-color: var(--coral);
+}
+
+.percorso-step[data-step="5"] .step-icon {
+    border-color: #7c6bb5;
+}
 
 .step-content {
     flex: 1;
@@ -835,7 +868,7 @@ ul { list-style: none; }
     margin-bottom: 12px;
 }
 
-.benefici-col > p {
+.benefici-col>p {
     color: var(--gray-600);
     margin-bottom: 16px;
 }
@@ -910,7 +943,7 @@ ul { list-style: none; }
     padding: 10px 0;
     font-size: 1rem;
     color: var(--gray-800);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .hotel-list li:last-child {
@@ -932,7 +965,7 @@ ul { list-style: none; }
 }
 
 .footer-logo {
-    height: 56px;
+    height: 160px;
     width: auto;
     margin-bottom: 12px;
     filter: brightness(0) invert(1);
@@ -968,7 +1001,7 @@ ul { list-style: none; }
 .footer-bottom {
     text-align: center;
     padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.85rem;
 }
 
@@ -980,7 +1013,9 @@ ul { list-style: none; }
    RESPONSIVE — TABLET (768px+)
    ================================ */
 @media (min-width: 768px) {
-    .container { padding: 0 32px; }
+    .container {
+        padding: 0 32px;
+    }
 
     .eventi-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1021,7 +1056,9 @@ ul { list-style: none; }
    RESPONSIVE — DESKTOP (1024px+)
    ================================ */
 @media (min-width: 1024px) {
-    .container { padding: 0 40px; }
+    .container {
+        padding: 0 40px;
+    }
 
     .eventi-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -1035,7 +1072,9 @@ ul { list-style: none; }
         padding: 100px 0;
     }
 
-    .eventi { padding: 100px 0 80px; }
+    .eventi {
+        padding: 100px 0 80px;
+    }
 }
 
 /* ================================
@@ -1086,7 +1125,7 @@ ul { list-style: none; }
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
         z-index: 998;
     }
 
@@ -1127,7 +1166,10 @@ ul { list-style: none; }
    ACCESSIBILITY & ANIMATIONS
    ================================ */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
     }
