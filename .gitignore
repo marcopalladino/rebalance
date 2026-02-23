@@ -1,0 +1,10 @@
+# Temp files
+Contenuti/sito_text.txt
+Contenuti/volantino_text.txt
+Contenuti/volantino_img_*
+Contenuti/*.pdf
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
