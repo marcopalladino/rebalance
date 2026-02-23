@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prenota Evento — Rebalance Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+
+<body class="page-prenota">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="header scrolled">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Rebalance Experience Logo">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#eventi" class="nav-link">Torna agli Eventi</a></li>
+                    <li><a href="index.html" class="nav-link">Home page</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PRENOTA SECTION -->
+    <section class="prenota-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="section-header">
+                    <span class="section-tag">📅 Unisciti a Noi</span>
+                    <h2 class="section-title">Prenota la tua Esperienza</h2>
+                    <p class="section-subtitle">Compila il modulo sottostante per confermare la tua presenza.</p>
+                </div>
+
+                <form id="bookingForm" class="booking-form" action="#" method="get"
+                    onsubmit="alert('Grazie! La tua richiesta di prenotazione è stata inviata. (Demo)'); window.location.href='index.html'; return false;">
+
+                    <div class="form-group">
+                        <label for="eventoSelect">Evento selezionato</label>
+                        <select id="eventoSelect" name="evento" required>
+                            <option value="" disabled selected>-- Seleziona un evento --</option>
+                            <!-- Options injected via JS -->
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome">Nome e Cognome</label>
+                            <input type="text" id="nome" name="nome" placeholder="Il tuo nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Numero di telefono (WhatsApp)</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+39 300 000 0000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Indirizzo Email</label>
+                        <input type="email" id="email" name="email" placeholder="tuaemail@esempio.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ospiti">Numero di partecipanti</label>
+                        <input type="number" id="ospiti" name="ospiti" min="1" max="10" value="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note">Eventuali note o esigenze fisiche particolari</label>
+                        <textarea id="note" name="note" rows="4"
+                            placeholder="Es. ho spesso mal di schiena, prima volta con questo tipo di movimento..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary btn--full">Invia Richiesta di Prenotazione</button>
+                    <p class="form-disclaimer">Premendo invio, accetti di essere contattato via WhatsApp o Email per la
+                        conferma definitiva.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none;">
+                <p>📍 Gran Canaria, Isole Canarie</p>
+                <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Populate select from script.js data and handle URL parameter
+        document.addEventListener('DOMContentLoaded', () => {
+            const select = document.getElementById('eventoSelect');
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedTitle = urlParams.get('evento');
+
+            // Re-use data from window.eventiList if available from script.js
+            if (window.eventiList && window.eventiList.length > 0) {
+                const now = new Date();
+                const futureEventi = window.eventiList.filter(e => new Date(e.data) >= new Date(now.toDateString()));
+
+                futureEventi.forEach(ev => {
+                    const opt = document.createElement('option');
+                    opt.value = ev.titolo;
+                    opt.textContent = `${ev.titolo} - ${new Date(ev.data).toLocaleDateString('it-IT')} (${ev.luogo})`;
+                    if (selectedTitle === ev.titolo) opt.selected = true;
+                    select.appendChild(opt);
+                });
+            } else {
+                // Fallback option if script.js data doesn't load fast enough
+                if (selectedTitle) {
+                    const opt = document.createElement('option');
+                    opt.value = selectedTitle;
+                    opt.textContent = selectedTitle;
+                    opt.selected = true;
+                    select.appendChild(opt);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

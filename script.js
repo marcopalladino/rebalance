@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             durata: "1 ora",
             luogo: "Playa de Maspalomas",
             descrizione: "Sessione mattutina di movimento e respirazione sulla sabbia.",
-            link: "#contatti"
+            link: "prenota.html?evento=Rebalance+in+Spiaggia"
         },
         {
             titolo: "Rebalance al Parco",
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             durata: "1 ora",
             luogo: "Parque Sur, San Bartolomé de Tirajana",
             descrizione: "Ritrova il tuo equilibrio immerso nel verde del parco.",
-            link: "#contatti"
+            link: "prenota.html?evento=Rebalance+al+Parco"
         },
         {
             titolo: "Sunset Rebalance",
@@ -35,9 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
             durata: "1 ora",
             luogo: "Playa del Inglés",
             descrizione: "Sessione al tramonto: il modo perfetto per chiudere la settimana.",
-            link: "#contatti"
+            link: "prenota.html?evento=Sunset+Rebalance"
         }
     ];
+    window.eventiList = eventi; // expose for the booking page
 
     // ========================
     // 2. RENDER EVENTI
@@ -141,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        
+
         if (currentScroll > 60) {
             header.classList.add('scrolled');
         } else {
@@ -177,10 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. SMOOTH SCROLL
     // ========================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
@@ -193,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. ACTIVE NAV HIGHLIGHT
     // ========================
     const sections = document.querySelectorAll('section[id]');
-    
+
     const navObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
