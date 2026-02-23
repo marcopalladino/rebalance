@@ -6,35 +6,115 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ========================
+    // 0. LANGUAGE DETECTION
+    // ========================
+    const lang = document.documentElement.lang || 'it';
+    const suffix = (lang === 'it') ? '' : '_' + lang;
+    window.currentLang = lang;
+
+    // Localized UI strings
+    const i18n = {
+        it: {
+            mesi: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+            giorni: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+            badge: 'Prossimo',
+            noEvents: '📅 Nuovi eventi in arrivo!',
+            noEventsSub: 'Contattami per essere aggiornato sui prossimi appuntamenti.',
+            prenota: 'Prenota',
+            durata: '1 ora'
+        },
+        es: {
+            mesi: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            giorni: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            badge: 'Próximo',
+            noEvents: '📅 ¡Nuevos eventos próximamente!',
+            noEventsSub: 'Contáctame para estar al día de las próximas citas.',
+            prenota: 'Reservar',
+            durata: '1 hora'
+        },
+        en: {
+            mesi: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            giorni: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            badge: 'Next',
+            noEvents: '📅 New events coming soon!',
+            noEventsSub: 'Contact me to stay updated on upcoming sessions.',
+            prenota: 'Book Now',
+            durata: '1 hour'
+        }
+    };
+    const t = i18n[lang] || i18n.it;
+
+    // Helper: get localized field
+    function lf(evento, field) {
+        return (suffix && evento[field + suffix]) ? evento[field + suffix] : evento[field];
+    }
+
+    // ========================
     // 1. EVENTI DATA
     // ========================
     // Modifica qui sotto per aggiornare gli eventi!
     const eventi = [
         {
             titolo: "Rebalance in Spiaggia",
+            titolo_es: "Rebalance en la Playa",
+            titolo_en: "Rebalance on the Beach",
+
             data: "2026-03-08",
             ora: "09:00",
             durata: "1 ora",
+            durata_es: "1 hora",
+            durata_en: "1 hour",
+
             luogo: "Playa de Maspalomas",
+            luogo_es: "Playa de Maspalomas",
+            luogo_en: "Maspalomas Beach",
+
             descrizione: "Sessione mattutina di movimento e respirazione sulla sabbia.",
+            descrizione_es: "Sesión matutina de movimiento y respiración en la arena.",
+            descrizione_en: "Morning session of movement and breathing on the sand.",
+
             link: "prenota.html?evento=Rebalance+in+Spiaggia"
         },
         {
             titolo: "Rebalance al Parco",
+            titolo_es: "Rebalance en el Parque",
+            titolo_en: "Rebalance in the Park",
+
             data: "2026-03-15",
             ora: "10:00",
             durata: "1 ora",
+            durata_es: "1 hora",
+            durata_en: "1 hour",
+
             luogo: "Parque Sur, San Bartolomé de Tirajana",
+            luogo_es: "Parque Sur, San Bartolomé de Tirajana",
+            luogo_en: "Parque Sur, San Bartolomé de Tirajana",
+
             descrizione: "Ritrova il tuo equilibrio immerso nel verde del parco.",
+            descrizione_es: "Encuentra tu equilibrio rodeado del verde del parque.",
+            descrizione_en: "Find your balance surrounded by the greenery of the park.",
+
             link: "prenota.html?evento=Rebalance+al+Parco"
         },
         {
             titolo: "Sunset Rebalance",
+            titolo_es: "Rebalance al Atardecer",
+            titolo_en: "Sunset Rebalance",
+
             data: "2026-03-22",
             ora: "17:30",
             durata: "1 ora",
+            durata_es: "1 hora",
+            durata_en: "1 hour",
+
             luogo: "Playa del Inglés",
+            luogo_es: "Playa del Inglés",
+            luogo_en: "Playa del Inglés",
+
             descrizione: "Sessione al tramonto: il modo perfetto per chiudere la settimana.",
+            descrizione_es: "Sesión al atardecer: la manera perfecta de cerrar la semana.",
+            descrizione_en: "Sunset session: the perfect way to close the week.",
+
             link: "prenota.html?evento=Sunset+Rebalance"
         }
     ];
@@ -47,8 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderEventi() {
         const now = new Date();
-        const mesi = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
-        const giorniSettimana = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
 
         // Sort by date
         const sorted = [...eventi].sort((a, b) => new Date(a.data) - new Date(b.data));
@@ -59,39 +137,44 @@ document.addEventListener('DOMContentLoaded', () => {
         if (futureEventi.length === 0) {
             eventiGrid.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.7);">
-                    <p style="font-size: 1.2rem; margin-bottom: 12px;">📅 Nuovi eventi in arrivo!</p>
-                    <p>Contattami per essere aggiornato sui prossimi appuntamenti.</p>
+                    <p style="font-size: 1.2rem; margin-bottom: 12px;">${t.noEvents}</p>
+                    <p>${t.noEventsSub}</p>
                 </div>
             `;
             return;
         }
 
+        // Build prenota link prefix based on language
+        const prenotaPrefix = (lang === 'it') ? '' : '../';
+        const prenotaPath = (lang === 'it') ? 'prenota.html' : prenotaPrefix + lang + '/prenota.html';
+
         eventiGrid.innerHTML = futureEventi.map((evento, index) => {
             const date = new Date(evento.data);
             const day = date.getDate();
-            const month = mesi[date.getMonth()];
-            const dayName = giorniSettimana[date.getDay()];
+            const month = t.mesi[date.getMonth()];
+            const dayName = t.giorni[date.getDay()];
             const isNext = index === 0;
+            const eventoLink = prenotaPath + '?evento=' + encodeURIComponent(lf(evento, 'titolo'));
 
             return `
                 <div class="evento-card ${isNext ? 'next' : ''}">
-                    ${isNext ? '<span class="evento-badge">Prossimo</span>' : ''}
+                    ${isNext ? '<span class="evento-badge">' + t.badge + '</span>' : ''}
                     <div class="evento-date">
                         <span class="day">${day}</span>
                         <span class="month">${month}</span>
                     </div>
                     <div class="evento-info">
-                        <h3>${evento.titolo}</h3>
-                        <p style="font-size:0.9rem; opacity:0.85; margin-bottom:8px;">${evento.descrizione}</p>
+                        <h3>${lf(evento, 'titolo')}</h3>
+                        <p style="font-size:0.9rem; opacity:0.85; margin-bottom:8px;">${lf(evento, 'descrizione')}</p>
                         <div class="evento-meta">
-                            <span>📍 ${evento.luogo}</span>
+                            <span>📍 ${lf(evento, 'luogo')}</span>
                             <span>🕐 ${evento.ora}</span>
-                            <span>⏱️ ${evento.durata}</span>
+                            <span>⏱️ ${lf(evento, 'durata')}</span>
                             <span>📆 ${dayName}</span>
                         </div>
                     </div>
                     <div class="evento-action">
-                        <a href="${evento.link}" class="btn btn--primary">Prenota</a>
+                        <a href="${eventoLink}" class="btn btn--primary">${t.prenota}</a>
                     </div>
                 </div>
             `;

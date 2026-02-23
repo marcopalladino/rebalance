@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prenota Evento — Rebalance Experience</title>
+    <title>Book Event — Rebalance Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
 </head>
 
 <body class="page-prenota">
@@ -20,72 +20,72 @@
     <header class="header scrolled">
         <div class="container header-inner">
             <a href="index.html" class="logo">
-                <img src="assets/logo.png" alt="Rebalance Experience Logo">
+                <img src="../assets/logo.png" alt="Rebalance Experience Logo">
             </a>
             <nav class="nav">
                 <ul class="nav-list">
-                    <li><a href="index.html#eventi" class="nav-link">Torna agli Eventi</a></li>
-                    <li><a href="index.html" class="nav-link">Home page</a></li>
+                    <li><a href="index.html#eventi" class="nav-link">Back to Events</a></li>
+                    <li><a href="index.html" class="nav-link">Home Page</a></li>
                 </ul>
                 <div class="lang-switcher">
-                    <a href="es/prenota.html" class="lang-link">Español</a>
-                    <a href="en/prenota.html" class="lang-link">English</a>
+                    <a href="../prenota.html" class="lang-link">Italiano</a>
+                    <a href="../es/prenota.html" class="lang-link">Español</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- PRENOTA SECTION -->
+    <!-- BOOKING SECTION -->
     <section class="prenota-section">
         <div class="container">
             <div class="form-container">
                 <div class="section-header">
-                    <span class="section-tag">📅 Unisciti a Noi</span>
-                    <h2 class="section-title">Prenota la tua Esperienza</h2>
-                    <p class="section-subtitle">Compila il modulo sottostante per confermare la tua presenza.</p>
+                    <span class="section-tag">📅 Join Us</span>
+                    <h2 class="section-title">Book Your Experience</h2>
+                    <p class="section-subtitle">Fill in the form below to confirm your attendance.</p>
                 </div>
 
                 <form id="bookingForm" class="booking-form" action="#" method="get"
-                    onsubmit="alert('Grazie! La tua richiesta di prenotazione è stata inviata. (Demo)'); window.location.href='index.html'; return false;">
+                    onsubmit="alert('Thank you! Your booking request has been sent. (Demo)'); window.location.href='index.html'; return false;">
 
                     <div class="form-group">
-                        <label for="eventoSelect">Evento selezionato</label>
+                        <label for="eventoSelect">Selected event</label>
                         <select id="eventoSelect" name="evento" required>
-                            <option value="" disabled selected>-- Seleziona un evento --</option>
+                            <option value="" disabled selected>-- Select an event --</option>
                             <!-- Options injected via JS -->
                         </select>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="nome">Nome e Cognome</label>
-                            <input type="text" id="nome" name="nome" placeholder="Il tuo nome" required>
+                            <label for="nome">Full Name</label>
+                            <input type="text" id="nome" name="nome" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
-                            <label for="telefono">Numero di telefono (WhatsApp)</label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="+39 300 000 0000" required>
+                            <label for="telefono">Phone Number (WhatsApp)</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Indirizzo Email</label>
-                        <input type="email" id="email" name="email" placeholder="tuaemail@esempio.com" required>
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="youremail@example.com" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="ospiti">Numero di partecipanti</label>
+                        <label for="ospiti">Number of participants</label>
                         <input type="number" id="ospiti" name="ospiti" min="1" max="10" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="note">Eventuali note o esigenze fisiche particolari</label>
+                        <label for="note">Any notes or special physical needs</label>
                         <textarea id="note" name="note" rows="4"
-                            placeholder="Es. ho spesso mal di schiena, prima volta con questo tipo di movimento..."></textarea>
+                            placeholder="E.g. I often have back pain, first time with this type of movement..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn--primary btn--full">Invia Richiesta di Prenotazione</button>
-                    <p class="form-disclaimer">Premendo invio, accetti di essere contattato via WhatsApp o Email per la
-                        conferma definitiva.</p>
+                    <button type="submit" class="btn btn--primary btn--full">Send Booking Request</button>
+                    <p class="form-disclaimer">By pressing submit, you agree to be contacted via WhatsApp or Email for
+                        final confirmation.</p>
                 </form>
             </div>
         </div>
@@ -95,34 +95,40 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-bottom" style="border-top: none;">
-                <p>📍 Gran Canaria, Isole Canarie</p>
-                <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
+                <p>📍 Gran Canaria, Canary Islands</p>
+                <p>&copy; 2026 Rebalance Experience. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
     <script>
         // Populate select from script.js data and handle URL parameter
         document.addEventListener('DOMContentLoaded', () => {
             const select = document.getElementById('eventoSelect');
             const urlParams = new URLSearchParams(window.location.search);
             const selectedTitle = urlParams.get('evento');
+            const lang = document.documentElement.lang || 'it';
+            const suffix = (lang === 'it') ? '' : '_' + lang;
 
-            // Re-use data from window.eventiList if available from script.js
+            function lf(ev, field) {
+                return (suffix && ev[field + suffix]) ? ev[field + suffix] : ev[field];
+            }
+
             if (window.eventiList && window.eventiList.length > 0) {
                 const now = new Date();
                 const futureEventi = window.eventiList.filter(e => new Date(e.data) >= new Date(now.toDateString()));
 
                 futureEventi.forEach(ev => {
                     const opt = document.createElement('option');
-                    opt.value = ev.titolo;
-                    opt.textContent = `${ev.titolo} - ${new Date(ev.data).toLocaleDateString('it-IT')} (${ev.luogo})`;
-                    if (selectedTitle === ev.titolo) opt.selected = true;
+                    const titolo = lf(ev, 'titolo');
+                    const luogo = lf(ev, 'luogo');
+                    opt.value = titolo;
+                    opt.textContent = `${titolo} - ${new Date(ev.data).toLocaleDateString('en-GB')} (${luogo})`;
+                    if (selectedTitle === titolo) opt.selected = true;
                     select.appendChild(opt);
                 });
             } else {
-                // Fallback option if script.js data doesn't load fast enough
                 if (selectedTitle) {
                     const opt = document.createElement('option');
                     opt.value = selectedTitle;

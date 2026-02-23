@@ -161,6 +161,32 @@ ul {
     color: var(--white) !important;
 }
 
+/* Language Switcher */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 1px solid var(--gray-200);
+}
+
+.lang-link {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+}
+
+.lang-link:hover {
+    color: var(--teal);
+    background: var(--teal-light);
+}
+
 /* Hamburger */
 .hamburger {
     display: none;
@@ -1274,6 +1300,22 @@ ul {
     /* Hotel section padding */
     .hotel-inner {
         padding: 28px 20px;
+    }
+
+    /* Language switcher mobile */
+    .lang-switcher {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid var(--gray-200);
+        padding-top: 16px;
+        margin-top: 16px;
+        justify-content: center;
+    }
+
+    .lang-link {
+        font-size: 14px;
+        padding: 10px 16px;
     }
 }
 
