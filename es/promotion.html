@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones Surf School — Rebalance Experience</title>
+    <meta name="description"
+        content="Descubre las promociones de la Surf School de Rebalance Experience en Gran Canaria.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+
+<body class="page-promotion">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="../assets/logo.png" alt="Rebalance Experience Logo">
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#eventi" class="nav-link">Próximos Eventos</a></li>
+                    <li><a href="index.html#cosa" class="nav-link">Qué Es</a></li>
+                    <li><a href="index.html#percorso" class="nav-link">El Recorrido</a></li>
+                    <li><a href="index.html#perchi" class="nav-link">Para Quién</a></li>
+                    <li><a href="index.html#benefici" class="nav-link">Beneficios</a></li>
+                    <li><a href="index.html#hotel" class="nav-link">Para Hoteles</a></li>
+                    <li class="nav-dropdown active">
+                        <a href="#" class="nav-link">Partners ▾</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="promotion.html">Surf School</a></li>
+                            <li><a href="promotion.html">Dance School</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contatti" class="nav-link nav-link--cta">Contacto</a></li>
+                </ul>
+                <div class="lang-switcher">
+                    <a href="../promotion.html" class="lang-link">Italiano</a>
+                    <a href="../en/promotion.html" class="lang-link">English</a>
+                </div>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="promo-hero">
+        <div class="container promo-hero-content">
+            <span class="section-tag" style="color: var(--gold);">🏄‍♀️ Surf School</span>
+            <h1 class="hero-title" style="font-size: clamp(2rem, 6vw, 3.5rem);">Nuestras<br><span>Promociones</span>
+            </h1>
+            <p class="hero-desc">¡Descubre las últimas ofertas para surfear las olas de Gran Canaria con nosotros!</p>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM POSTS SECTION -->
+    <section class="promo-posts-section">
+        <div class="container">
+            <div class="promo-tabs">
+                <button class="tab-btn active" data-tab="tab1">🏄 Video Surf 1</button>
+                <button class="tab-btn" data-tab="tab2">🌊 Video Surf 2</button>
+            </div>
+
+            <div class="tab-content active" id="tab1">
+                <div class="instagram-embed-container" id="insta-embed-1"></div>
+            </div>
+
+            <div class="tab-content" id="tab2">
+                <div class="instagram-embed-container" id="insta-embed-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO DE INSCRIPCIÓN CLASE DE SURF -->
+    <section class="surf-form-section" id="iscrizione">
+        <div class="container">
+            <div class="surf-form-container reveal">
+                <div class="surf-form-header">
+                    <span class="section-tag">🏄‍♂️ Inscríbete</span>
+                    <h2 class="section-title">Reserva tu clase de Surf</h2>
+                    <p class="section-subtitle">¡Rellena el formulario y te contactaremos para confirmar tu clase!</p>
+                </div>
+
+                <form class="surf-form" id="surfForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome">Nombre *</label>
+                            <input type="text" id="nome" name="nome" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cognome">Apellido *</label>
+                            <input type="text" id="cognome" name="cognome" placeholder="Tu apellido" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="Tu email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono / WhatsApp</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+34 ...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="livello">Nivel de experiencia</label>
+                        <select id="livello" name="livello">
+                            <option value="principiante">🟢 Principiante — Nunca he surfeado</option>
+                            <option value="intermedio">🟡 Intermedio — Ya he probado</option>
+                            <option value="avanzato">🔴 Avanzado — Surfista experto</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="data-lezione">Fecha preferida</label>
+                            <input type="date" id="data-lezione" name="data-lezione">
+                        </div>
+                        <div class="form-group">
+                            <label for="partecipanti">Número de participantes</label>
+                            <select id="partecipanti" name="partecipanti">
+                                <option value="1">1 persona</option>
+                                <option value="2">2 personas</option>
+                                <option value="3">3 personas</option>
+                                <option value="4">4 personas</option>
+                                <option value="5+">5+ personas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="messaggio">Notas adicionales</label>
+                        <textarea id="messaggio" name="messaggio" rows="4"
+                            placeholder="Indícanos cualquier solicitud especial..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary btn--full">
+                        📩 Enviar solicitud
+                    </button>
+                    <p class="form-disclaimer">Recibirás una confirmación por email o WhatsApp. No se requiere pago en
+                        esta fase.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA WHATSAPP -->
+    <section class="promo-cta-section">
+        <div class="container">
+            <div class="promo-cta-box reveal">
+                <div class="promo-cta-icon">💬</div>
+                <h3>¿Prefieres escribirnos directamente?</h3>
+                <p>Contáctanos ahora en WhatsApp para descubrir todos los detalles sobre paquetes, clases y
+                    disponibilidad. ¡Te esperamos en el agua!</p>
+                <a href="https://wa.me/34642468566" target="_blank" rel="noopener" class="btn btn--whatsapp">
+                    💬 Escríbenos en WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="../assets/logo.png" alt="Rebalance Experience" class="footer-logo">
+                    <p class="footer-tagline">La experiencia que reequilibra cuerpo y mente</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@rebalance-experience.fun">📧 info@rebalance-experience.fun</a></li>
+                        <li><a href="https://wa.me/34642468566" target="_blank" rel="noopener">💬 WhatsApp</a></li>
+                        <li><a href="https://instagram.com/rebalanceexperience" target="_blank" rel="noopener">📸
+                                Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>📍 Gran Canaria, Islas Canarias</p>
+                <p>&copy; 2026 Rebalance Experience. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

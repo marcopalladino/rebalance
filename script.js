@@ -181,7 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
-    renderEventi();
+    if (eventiGrid) {
+        renderEventi();
+    }
 
     // ========================
     // 3. HAMBURGER MENU
@@ -293,5 +295,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.3 });
 
     sections.forEach(section => navObserver.observe(section));
+
+    // ========================
+    // 8. MOBILE DROPDOWN TOGGLE
+    // ========================
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    navDropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function (e) {
+            // Only toggle on mobile screens
+            if (window.innerWidth < 768) {
+                if (e.target.classList.contains('nav-link')) {
+                    e.preventDefault();
+                    this.classList.toggle('active');
+                }
+            }
+        });
+    });
+
+    // ========================
+    // 9. PROMOTION TABS & INSTAGRAM EMBED
+    // ========================
+    // ——— CONFIGURA QUI I POST INSTAGRAM ———
+    // Cambia solo gli ID dei post (la parte dopo /p/ nell'URL di Instagram)
+    const promoPosts = {
+        tab1: {
+            postId: 'DUVYcs0jIwu'
+        },
+        tab2: {
+            postId: 'DSiYg6FgtlIQK2OMNwzPbwHr1K0XcDP6PabyV00'
+        }
+    };
+
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    if (tabBtns.length > 0) {
+        const embedContainer1 = document.getElementById('insta-embed-1');
+        const embedContainer2 = document.getElementById('insta-embed-2');
+
+        // Inject iframes directly (works on file:// and https://)
+        function createInstaIframe(postId) {
+            return `<iframe src="https://www.instagram.com/p/${postId}/embed/" 
+                        width="100%" height="550" frameborder="0" scrolling="no" 
+                        allowtransparency="true" allow="encrypted-media"
+                        style="border:none; overflow:hidden; border-radius:12px; background:#fff;">
+                    </iframe>`;
+        }
+
+        if (embedContainer1) embedContainer1.innerHTML = createInstaIframe(promoPosts.tab1.postId);
+        if (embedContainer2) embedContainer2.innerHTML = createInstaIframe(promoPosts.tab2.postId);
+
+        // Tab switching logic
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.getAttribute('data-tab');
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+    }
 
 });

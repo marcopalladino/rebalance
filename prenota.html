@@ -45,8 +45,7 @@
                     <p class="section-subtitle">Compila il modulo sottostante per confermare la tua presenza.</p>
                 </div>
 
-                <form id="bookingForm" class="booking-form" action="#" method="get"
-                    onsubmit="alert('Grazie! La tua richiesta di prenotazione è stata inviata. (Demo)'); window.location.href='index.html'; return false;">
+                <form id="bookingForm" class="booking-form">
 
                     <div class="form-group">
                         <label for="eventoSelect">Evento selezionato</label>
@@ -83,7 +82,12 @@
                             placeholder="Es. ho spesso mal di schiena, prima volta con questo tipo di movimento..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn--primary btn--full">Invia Richiesta di Prenotazione</button>
+                    <div id="formMessage"
+                        style="display:none; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-weight: 500; text-align: center;">
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn btn--primary btn--full">Invia Richiesta di
+                        Prenotazione</button>
                     <a href="https://wa.me/34642468566?text=Ciao!%20Vorrei%20prenotare%20un%20evento%20Rebalance%20Experience"
                         target="_blank" rel="noopener" class="btn btn--whatsapp btn--full">💬 Prenota via WhatsApp</a>
                     <p class="form-disclaimer">Premendo invio, accetti di essere contattato via WhatsApp o Email per la
@@ -105,13 +109,15 @@
 
     <script src="script.js"></script>
     <script>
-        // Populate select from script.js data and handle URL parameter
+        // ── Config ──────────────────────────────────────────
+        const API_URL = 'http://localhost:3000/api/send-booking';
+
+        // ── Populate event select ───────────────────────────
         document.addEventListener('DOMContentLoaded', () => {
             const select = document.getElementById('eventoSelect');
             const urlParams = new URLSearchParams(window.location.search);
             const selectedTitle = urlParams.get('evento');
 
-            // Re-use data from window.eventiList if available from script.js
             if (window.eventiList && window.eventiList.length > 0) {
                 const now = new Date();
                 const futureEventi = window.eventiList.filter(e => new Date(e.data) >= new Date(now.toDateString()));
@@ -124,7 +130,6 @@
                     select.appendChild(opt);
                 });
             } else {
-                // Fallback option if script.js data doesn't load fast enough
                 if (selectedTitle) {
                     const opt = document.createElement('option');
                     opt.value = selectedTitle;
@@ -132,6 +137,57 @@
                     opt.selected = true;
                     select.appendChild(opt);
                 }
+            }
+        });
+
+        // ── Form submission ─────────────────────────────────
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const msg = document.getElementById('formMessage');
+            const form = e.target;
+
+            btn.disabled = true;
+            btn.textContent = 'Invio in corso...';
+            msg.style.display = 'none';
+
+            const payload = {
+                evento: form.evento.value,
+                nome: form.nome.value,
+                telefono: form.telefono.value,
+                email: form.email.value,
+                ospiti: form.ospiti.value,
+                note: form.note.value
+            };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    msg.textContent = '✅ ' + data.message;
+                    msg.style.background = '#d1fae5';
+                    msg.style.color = '#065f46';
+                    msg.style.display = 'block';
+                    form.reset();
+                } else {
+                    msg.textContent = '❌ ' + (data.message || 'Errore nell\'invio.');
+                    msg.style.background = '#fee2e2';
+                    msg.style.color = '#991b1b';
+                    msg.style.display = 'block';
+                }
+            } catch (err) {
+                msg.textContent = '❌ Impossibile contattare il server. Riprova più tardi.';
+                msg.style.background = '#fee2e2';
+                msg.style.color = '#991b1b';
+                msg.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Invia Richiesta di Prenotazione';
             }
         });
     </script>
