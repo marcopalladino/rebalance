@@ -1082,7 +1082,7 @@ ul {
    ================================ */
 @media (max-width: 767px) {
     .header-inner {
-        height: 120px;
+        height: 160px;
         position: relative;
         justify-content: flex-end;
     }
@@ -1101,7 +1101,7 @@ ul {
     }
 
     .logo img {
-        height: 120px;
+        height: 160px;
     }
 
     .footer-logo {
