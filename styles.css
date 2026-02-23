@@ -397,6 +397,21 @@ ul {
     transform: translateY(-2px);
 }
 
+.btn--whatsapp {
+    background: #25d366;
+    color: var(--white);
+    border-color: #25d366;
+    margin-top: 12px;
+}
+
+.btn--whatsapp:hover {
+    background: #1fb855;
+    border-color: #1fb855;
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+}
+
 /* --- SECTION COMMON --- */
 .section-header {
     text-align: center;
