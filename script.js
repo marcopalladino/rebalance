@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             titolo_es: "Rebalance en la Playa",
             titolo_en: "Rebalance on the Beach",
 
-            data: "2026-03-05",
+            data: "2026-03-04",
             ora: "09:45",
             durata: "1 ora",
             durata_es: "1 hora",
