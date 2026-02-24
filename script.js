@@ -59,15 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
             titolo_es: "Rebalance en la Playa",
             titolo_en: "Rebalance on the Beach",
 
-            data: "2026-03-08",
-            ora: "09:00",
+            data: "2026-03-05",
+            ora: "09:45",
             durata: "1 ora",
             durata_es: "1 hora",
             durata_en: "1 hour",
 
-            luogo: "Playa de Maspalomas",
-            luogo_es: "Playa de Maspalomas",
-            luogo_en: "Maspalomas Beach",
+            luogo: "Playa de Las Burras",
+            luogo_es: "Playa de Las Burras",
+            luogo_en: "Las Burras Beach",
 
             descrizione: "Sessione mattutina di movimento e respirazione sulla sabbia.",
             descrizione_es: "Sesión matutina de movimiento y respiración en la arena.",
@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
             titolo_es: "Rebalance en el Parque",
             titolo_en: "Rebalance in the Park",
 
-            data: "2026-03-15",
-            ora: "10:00",
+            data: "2026-03-14",
+            ora: "09:45",
             durata: "1 ora",
             durata_es: "1 hora",
             durata_en: "1 hour",
@@ -102,14 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
             titolo_en: "Sunset Rebalance",
 
             data: "2026-03-22",
-            ora: "17:30",
+            ora: "17:15",
             durata: "1 ora",
             durata_es: "1 hora",
             durata_en: "1 hour",
 
-            luogo: "Playa del Inglés",
-            luogo_es: "Playa del Inglés",
-            luogo_en: "Playa del Inglés",
+            luogo: "Parque Sur, San Bartolomé de Tirajana",
+            luogo_es: "Parque Sur, San Bartolomé de Tirajana",
+            luogo_en: "Parque Sur, San Bartolomé de Tirajana",
 
             descrizione: "Sessione al tramonto: il modo perfetto per chiudere la settimana.",
             descrizione_es: "Sesión al atardecer: la manera perfecta de cerrar la semana.",
