@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promociones Surf School — Rebalance Experience</title>
-    <meta name="description"
-        content="Descubre las promociones de la Surf School de Rebalance Experience en Gran Canaria.">
+    <title>Surf School Promozioni — Rebalance Experience</title>
+    <meta name="description" content="Scopri le promozioni della Surf School by Rebalance Experience a Gran Canaria.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -26,12 +25,12 @@
             </a>
             <nav class="nav" id="nav">
                 <ul class="nav-list">
-                    <li><a href="index.html#eventi" class="nav-link">Próximos Eventos</a></li>
-                    <li><a href="index.html#cosa" class="nav-link">Qué Es</a></li>
-                    <li><a href="index.html#percorso" class="nav-link">El Recorrido</a></li>
-                    <li><a href="index.html#perchi" class="nav-link">Para Quién</a></li>
-                    <li><a href="index.html#benefici" class="nav-link">Beneficios</a></li>
-                    <li><a href="index.html#hotel" class="nav-link">Para Hoteles</a></li>
+                    <li><a href="index.html#eventi" class="nav-link">Prossimi Eventi</a></li>
+                    <li><a href="index.html#cosa" class="nav-link">Cos'è</a></li>
+                    <li><a href="index.html#percorso" class="nav-link">Il Percorso</a></li>
+                    <li><a href="index.html#perchi" class="nav-link">Per Chi È</a></li>
+                    <li><a href="index.html#benefici" class="nav-link">Benefici</a></li>
+                    <li><a href="index.html#hotel" class="nav-link">Per Hotel</a></li>
                     <li class="nav-dropdown active">
                         <a href="#" class="nav-link">Partners ▾</a>
                         <ul class="dropdown-menu">
@@ -39,14 +38,14 @@
                             <li><a href="promotion.html">Dance School</a></li>
                         </ul>
                     </li>
-                    <li><a href="index.html#contatti" class="nav-link nav-link--cta">Contacto</a></li>
+                    <li><a href="index.html#contatti" class="nav-link nav-link--cta">Contatti</a></li>
                 </ul>
                 <div class="lang-switcher">
-                    <a href="../promotion.html" class="lang-link">Italiano</a>
+                    <a href="../promotion.html" class="lang-link">Español</a>
                     <a href="../en/promotion.html" class="lang-link">English</a>
                 </div>
             </nav>
-            <button class="hamburger" id="hamburger" aria-label="Menú">
+            <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -58,13 +57,13 @@
     <section class="promo-hero">
         <div class="container promo-hero-content">
             <span class="section-tag" style="color: var(--gold);">🏄‍♀️ Surf School</span>
-            <h1 class="hero-title" style="font-size: clamp(2rem, 6vw, 3.5rem);">Nuestras<br><span>Promociones</span>
+            <h1 class="hero-title" style="font-size: clamp(2rem, 6vw, 3.5rem);">Le Nostre<br><span>Promozioni</span>
             </h1>
-            <p class="hero-desc">¡Descubre las últimas ofertas para surfear las olas de Gran Canaria con nosotros!</p>
+            <p class="hero-desc">Scopri le ultime offerte per cavalcare le onde di Gran Canaria con noi!</p>
         </div>
     </section>
 
-    <!-- INSTAGRAM POSTS SECTION -->
+    <!-- INSTAGRAM POSTS SECTION (sfondo blu) -->
     <section class="promo-posts-section">
         <div class="container">
             <div class="promo-tabs">
@@ -73,85 +72,89 @@
             </div>
 
             <div class="tab-content active" id="tab1">
-                <div class="instagram-embed-container" id="insta-embed-1"></div>
+                <div class="instagram-embed-container" id="insta-embed-1">
+                    <!-- Instagram embed injected by script.js -->
+                </div>
             </div>
 
             <div class="tab-content" id="tab2">
-                <div class="instagram-embed-container" id="insta-embed-2"></div>
+                <div class="instagram-embed-container" id="insta-embed-2">
+                    <!-- Instagram embed injected by script.js -->
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- FORMULARIO DE INSCRIPCIÓN CLASE DE SURF -->
+    <!-- FORM ISCRIZIONE LEZIONE DI SURF -->
     <section class="surf-form-section" id="iscrizione">
         <div class="container">
             <div class="surf-form-container reveal">
                 <div class="surf-form-header">
-                    <span class="section-tag">🏄‍♂️ Inscríbete</span>
-                    <h2 class="section-title">Reserva tu clase de Surf</h2>
-                    <p class="section-subtitle">¡Rellena el formulario y te contactaremos para confirmar tu clase!</p>
+                    <span class="section-tag">🏄‍♂️ Iscriviti</span>
+                    <h2 class="section-title">Prenota la tua lezione di Surf</h2>
+                    <p class="section-subtitle">Compila il modulo e ti contatteremo per confermare la tua lezione!</p>
                 </div>
 
                 <form class="surf-form" id="surfForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="nome">Nombre *</label>
-                            <input type="text" id="nome" name="nome" placeholder="Tu nombre" required>
+                            <label for="nome">Nome *</label>
+                            <input type="text" id="nome" name="nome" placeholder="Il tuo nome" required>
                         </div>
                         <div class="form-group">
-                            <label for="cognome">Apellido *</label>
-                            <input type="text" id="cognome" name="cognome" placeholder="Tu apellido" required>
+                            <label for="cognome">Cognome *</label>
+                            <input type="text" id="cognome" name="cognome" placeholder="Il tuo cognome" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" placeholder="Tu email" required>
+                            <input type="email" id="email" name="email" placeholder="La tua email" required>
                         </div>
                         <div class="form-group">
-                            <label for="telefono">Teléfono / WhatsApp</label>
+                            <label for="telefono">Telefono / WhatsApp</label>
                             <input type="tel" id="telefono" name="telefono" placeholder="+34 ...">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="livello">Nivel de experiencia</label>
+                        <label for="livello">Livello di esperienza</label>
                         <select id="livello" name="livello">
-                            <option value="principiante">🟢 Principiante — Nunca he surfeado</option>
-                            <option value="intermedio">🟡 Intermedio — Ya he probado</option>
-                            <option value="avanzato">🔴 Avanzado — Surfista experto</option>
+                            <option value="principiante">🟢 Principiante — Mai fatto surf</option>
+                            <option value="intermedio">🟡 Intermedio — Ho già provato</option>
+                            <option value="avanzato">🔴 Avanzato — Surfista esperto</option>
                         </select>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="data-lezione">Fecha preferida</label>
+                            <label for="data-lezione">Data preferita</label>
                             <input type="date" id="data-lezione" name="data-lezione">
                         </div>
                         <div class="form-group">
-                            <label for="partecipanti">Número de participantes</label>
+                            <label for="partecipanti">Numero partecipanti</label>
                             <select id="partecipanti" name="partecipanti">
                                 <option value="1">1 persona</option>
-                                <option value="2">2 personas</option>
-                                <option value="3">3 personas</option>
-                                <option value="4">4 personas</option>
-                                <option value="5+">5+ personas</option>
+                                <option value="2">2 persone</option>
+                                <option value="3">3 persone</option>
+                                <option value="4">4 persone</option>
+                                <option value="5+">5+ persone</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="messaggio">Notas adicionales</label>
+                        <label for="messaggio">Note aggiuntive</label>
                         <textarea id="messaggio" name="messaggio" rows="4"
-                            placeholder="Indícanos cualquier solicitud especial..."></textarea>
+                            placeholder="Indicaci eventuali richieste particolari..."></textarea>
                     </div>
 
                     <button type="submit" class="btn btn--primary btn--full">
-                        📩 Enviar solicitud
+                        📩 Invia richiesta
                     </button>
-                    <p class="form-disclaimer">Recibirás una confirmación por email o WhatsApp. No se requiere pago en
-                        esta fase.</p>
+                    <p class="form-disclaimer">Riceverai una conferma via email o WhatsApp. Nessun pagamento richiesto
+                        in questa fase.</p>
                 </form>
             </div>
         </div>
@@ -162,11 +165,11 @@
         <div class="container">
             <div class="promo-cta-box reveal">
                 <div class="promo-cta-icon">💬</div>
-                <h3>¿Prefieres escribirnos directamente?</h3>
-                <p>Contáctanos ahora en WhatsApp para descubrir todos los detalles sobre paquetes, clases y
-                    disponibilidad. ¡Te esperamos en el agua!</p>
+                <h3>Preferisci scriverci direttamente?</h3>
+                <p>Contattaci subito su WhatsApp per scoprire tutti i dettagli su pacchetti, lezioni e disponibilità. Ti
+                    aspettiamo in acqua!</p>
                 <a href="https://wa.me/34642468566" target="_blank" rel="noopener" class="btn btn--whatsapp">
-                    💬 Escríbenos en WhatsApp
+                    💬 Scrivici su WhatsApp
                 </a>
             </div>
         </div>
@@ -178,10 +181,10 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <img src="../assets/logo.png" alt="Rebalance Experience" class="footer-logo">
-                    <p class="footer-tagline">La experiencia que reequilibra cuerpo y mente</p>
+                    <p class="footer-tagline">L'esperienza che riequilibra corpo e mente</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Contacto</h4>
+                    <h4>Contatti</h4>
                     <ul class="footer-links">
                         <li><a href="mailto:info@rebalance-experience.fun">📧 info@rebalance-experience.fun</a></li>
                         <li><a href="https://wa.me/34642468566" target="_blank" rel="noopener">💬 WhatsApp</a></li>
@@ -191,14 +194,15 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>📍 Gran Canaria, Islas Canarias</p>
-                <p>&copy; 2026 Rebalance Experience. Todos los derechos reservados.</p>
+                <p>📍 Gran Canaria, Isole Canarie</p>
+                <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
 
     <script src="../script.js"></script>
     <script>
+        // ── Surf form submission via mailto ─────────────────
         const surfForm = document.getElementById('surfForm');
         if (surfForm) {
             surfForm.addEventListener('submit', (e) => {
@@ -214,15 +218,15 @@
                 const partecipanti = form.partecipanti.value;
                 const messaggio = form.messaggio.value;
 
-                const subject = encodeURIComponent('Solicitud Clase de Surf — ' + nome + ' ' + cognome);
+                const subject = encodeURIComponent('Richiesta Lezione Surf — ' + nome + ' ' + cognome);
                 const body = encodeURIComponent(
-                    'Nombre: ' + nome + ' ' + cognome + '\n' +
+                    'Nome: ' + nome + ' ' + cognome + '\n' +
                     'Email: ' + email + '\n' +
-                    'Teléfono: ' + telefono + '\n' +
-                    'Nivel: ' + livello + '\n' +
-                    'Fecha preferida: ' + (data || 'Por decidir') + '\n' +
-                    'Participantes: ' + partecipanti + '\n' +
-                    'Notas: ' + (messaggio || 'Ninguna') + '\n'
+                    'Telefono: ' + telefono + '\n' +
+                    'Livello: ' + livello + '\n' +
+                    'Data preferita: ' + (data || 'Da concordare') + '\n' +
+                    'Partecipanti: ' + partecipanti + '\n' +
+                    'Note: ' + (messaggio || 'Nessuna') + '\n'
                 );
 
                 window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;

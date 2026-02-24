@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prenota Evento — Rebalance Experience</title>
+    <title>Reservar Evento — Rebalance Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -24,74 +24,74 @@
             </a>
             <nav class="nav">
                 <ul class="nav-list">
-                    <li><a href="index.html#eventi" class="nav-link">Torna agli Eventi</a></li>
-                    <li><a href="index.html" class="nav-link">Home page</a></li>
+                    <li><a href="index.html#eventi" class="nav-link">Volver a Eventos</a></li>
+                    <li><a href="index.html" class="nav-link">Página Principal</a></li>
                 </ul>
                 <div class="lang-switcher">
-                    <a href="es/prenota.html" class="lang-link">Español</a>
+                    <a href="it/prenota.html" class="lang-link">Italiano</a>
                     <a href="en/prenota.html" class="lang-link">English</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- PRENOTA SECTION -->
+    <!-- RESERVAR SECTION -->
     <section class="prenota-section">
         <div class="container">
             <div class="form-container">
                 <div class="section-header">
-                    <span class="section-tag">📅 Unisciti a Noi</span>
-                    <h2 class="section-title">Prenota la tua Esperienza</h2>
-                    <p class="section-subtitle">Compila il modulo sottostante per confermare la tua presenza.</p>
+                    <span class="section-tag">📅 Únete a Nosotros</span>
+                    <h2 class="section-title">Reserva tu Experiencia</h2>
+                    <p class="section-subtitle">Completa el formulario para confirmar tu presencia.</p>
                 </div>
 
                 <form id="bookingForm" class="booking-form">
 
                     <div class="form-group">
-                        <label for="eventoSelect">Evento selezionato</label>
+                        <label for="eventoSelect">Evento seleccionado</label>
                         <select id="eventoSelect" name="evento" required>
-                            <option value="" disabled selected>-- Seleziona un evento --</option>
+                            <option value="" disabled selected>-- Selecciona un evento --</option>
                             <!-- Options injected via JS -->
                         </select>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="nome">Nome e Cognome</label>
-                            <input type="text" id="nome" name="nome" placeholder="Il tuo nome" required>
+                            <label for="nome">Nombre y Apellidos</label>
+                            <input type="text" id="nome" name="nome" placeholder="Tu nombre" required>
                         </div>
                         <div class="form-group">
-                            <label for="telefono">Numero di telefono (WhatsApp)</label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="+39 300 000 0000" required>
+                            <label for="telefono">Número de teléfono (WhatsApp)</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Indirizzo Email</label>
-                        <input type="email" id="email" name="email" placeholder="tuaemail@esempio.com" required>
+                        <label for="email">Dirección de Email</label>
+                        <input type="email" id="email" name="email" placeholder="tuemail@ejemplo.com" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="ospiti">Numero di partecipanti</label>
+                        <label for="ospiti">Número de participantes</label>
                         <input type="number" id="ospiti" name="ospiti" min="1" max="10" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="note">Eventuali note o esigenze fisiche particolari</label>
+                        <label for="note">Notas o necesidades físicas particulares</label>
                         <textarea id="note" name="note" rows="4"
-                            placeholder="Es. ho spesso mal di schiena, prima volta con questo tipo di movimento..."></textarea>
+                            placeholder="Ej. tengo dolor de espalda frecuente, primera vez con este tipo de movimiento..."></textarea>
                     </div>
 
                     <div id="formMessage"
                         style="display:none; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-weight: 500; text-align: center;">
                     </div>
 
-                    <button type="submit" id="submitBtn" class="btn btn--primary btn--full">Invia Richiesta di
-                        Prenotazione</button>
-                    <a href="https://wa.me/34642468566?text=Ciao!%20Vorrei%20prenotare%20un%20evento%20Rebalance%20Experience"
-                        target="_blank" rel="noopener" class="btn btn--whatsapp btn--full">💬 Prenota via WhatsApp</a>
-                    <p class="form-disclaimer">Premendo invio, accetti di essere contattato via WhatsApp o Email per la
-                        conferma definitiva.</p>
+                    <button type="submit" id="submitBtn" class="btn btn--primary btn--full">Enviar Solicitud de
+                        Reserva</button>
+                    <a href="https://wa.me/34642468566?text=¡Hola!%20Quiero%20reservar%20un%20evento%20Rebalance%20Experience"
+                        target="_blank" rel="noopener" class="btn btn--whatsapp btn--full">💬 Reservar por WhatsApp</a>
+                    <p class="form-disclaimer">Al pulsar enviar, aceptas ser contactado por WhatsApp o Email para la
+                        confirmación definitiva.</p>
                 </form>
             </div>
         </div>
@@ -101,8 +101,8 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-bottom" style="border-top: none;">
-                <p>📍 Gran Canaria, Isole Canarie</p>
-                <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
+                <p>📍 Gran Canaria, Islas Canarias</p>
+                <p>&copy; 2026 Rebalance Experience. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -114,6 +114,12 @@
             const select = document.getElementById('eventoSelect');
             const urlParams = new URLSearchParams(window.location.search);
             const selectedTitle = urlParams.get('evento');
+            const lang = document.documentElement.lang || 'it';
+            const suffix = (lang === 'it') ? '' : '_' + lang;
+
+            function lf(ev, field) {
+                return (suffix && ev[field + suffix]) ? ev[field + suffix] : ev[field];
+            }
 
             if (window.eventiList && window.eventiList.length > 0) {
                 const now = new Date();
@@ -121,9 +127,11 @@
 
                 futureEventi.forEach(ev => {
                     const opt = document.createElement('option');
-                    opt.value = ev.titolo;
-                    opt.textContent = `${ev.titolo} - ${new Date(ev.data).toLocaleDateString('it-IT')} (${ev.luogo})`;
-                    if (selectedTitle === ev.titolo) opt.selected = true;
+                    const titolo = lf(ev, 'titolo');
+                    const luogo = lf(ev, 'luogo');
+                    opt.value = titolo;
+                    opt.textContent = `${titolo} - ${new Date(ev.data).toLocaleDateString('es-ES')} (${luogo})`;
+                    if (selectedTitle === titolo) opt.selected = true;
                     select.appendChild(opt);
                 });
             } else {
@@ -149,14 +157,14 @@
             const ospiti = form.ospiti.value;
             const note = form.note.value;
 
-            const subject = encodeURIComponent('Prenotazione Rebalance Experience — ' + evento);
+            const subject = encodeURIComponent('Solicitud de Reserva — ' + evento);
             const body = encodeURIComponent(
                 'Evento: ' + evento + '\n' +
-                'Nome: ' + nome + '\n' +
-                'Telefono: ' + telefono + '\n' +
+                'Nombre: ' + nome + '\n' +
+                'Teléfono: ' + telefono + '\n' +
                 'Email: ' + email + '\n' +
-                'Partecipanti: ' + ospiti + '\n' +
-                'Note: ' + (note || 'Nessuna') + '\n'
+                'Participantes: ' + ospiti + '\n' +
+                'Notas: ' + (note || 'Ninguna') + '\n'
             );
 
             window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;

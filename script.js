@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================
     // 0. LANGUAGE DETECTION
     // ========================
-    const lang = document.documentElement.lang || 'it';
+    const lang = document.documentElement.lang || 'es';
     const suffix = (lang === 'it') ? '' : '_' + lang;
     window.currentLang = lang;
 
@@ -144,9 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Build prenota link prefix based on language
-        const prenotaPrefix = (lang === 'it') ? '' : '../';
-        const prenotaPath = (lang === 'it') ? 'prenota.html' : prenotaPrefix + lang + '/prenota.html';
+        // Build prenota link
+        const prenotaPath = 'prenota.html';
 
         eventiGrid.innerHTML = futureEventi.map((evento, index) => {
             const date = new Date(evento.data);
