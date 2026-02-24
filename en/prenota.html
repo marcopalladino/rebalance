@@ -109,9 +109,6 @@
 
     <script src="../script.js"></script>
     <script>
-        // ── Config ──────────────────────────────────────────
-        const API_URL = 'http://localhost:3000/api/send-booking';
-
         // ── Populate event select ───────────────────────────
         document.addEventListener('DOMContentLoaded', () => {
             const select = document.getElementById('eventoSelect');
@@ -148,55 +145,29 @@
             }
         });
 
-        // ── Form submission ─────────────────────────────────
-        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+        // ── Form submission via mailto ─────────────────────────
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const msg = document.getElementById('formMessage');
             const form = e.target;
 
-            btn.disabled = true;
-            btn.textContent = 'Sending...';
-            msg.style.display = 'none';
+            const evento = form.evento.value;
+            const nome = form.nome.value;
+            const telefono = form.telefono.value;
+            const email = form.email.value;
+            const ospiti = form.ospiti.value;
+            const note = form.note.value;
 
-            const payload = {
-                evento: form.evento.value,
-                nome: form.nome.value,
-                telefono: form.telefono.value,
-                email: form.email.value,
-                ospiti: form.ospiti.value,
-                note: form.note.value
-            };
+            const subject = encodeURIComponent('Booking Request — ' + evento);
+            const body = encodeURIComponent(
+                'Event: ' + evento + '\n' +
+                'Name: ' + nome + '\n' +
+                'Phone: ' + telefono + '\n' +
+                'Email: ' + email + '\n' +
+                'Participants: ' + ospiti + '\n' +
+                'Notes: ' + (note || 'None') + '\n'
+            );
 
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    msg.textContent = '✅ ' + data.message;
-                    msg.style.background = '#d1fae5';
-                    msg.style.color = '#065f46';
-                    msg.style.display = 'block';
-                    form.reset();
-                } else {
-                    msg.textContent = '❌ ' + (data.message || 'Error sending request.');
-                    msg.style.background = '#fee2e2';
-                    msg.style.color = '#991b1b';
-                    msg.style.display = 'block';
-                }
-            } catch (err) {
-                msg.textContent = '❌ Unable to reach the server. Please try again later.';
-                msg.style.background = '#fee2e2';
-                msg.style.color = '#991b1b';
-                msg.style.display = 'block';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Send Booking Request';
-            }
+            window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;
         });
     </script>
 </body>

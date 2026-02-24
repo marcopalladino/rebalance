@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ========================
+       HOMEPAGES (index)
+       ======================== -->
+  <url>
+    <loc>https://rebalance-experience.fun/</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/"/>
+  </url>
+  
+  <url>
+    <loc>https://rebalance-experience.fun/en/</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/"/>
+  </url>
+
+  <url>
+    <loc>https://rebalance-experience.fun/es/</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/"/>
+  </url>
+
+  <!-- ========================
+       PRENOTA PAGES
+       ======================== -->
+  <url>
+    <loc>https://rebalance-experience.fun/prenota.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/prenota.html"/>
+  </url>
+
+  <url>
+    <loc>https://rebalance-experience.fun/en/prenota.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/prenota.html"/>
+  </url>
+
+  <url>
+    <loc>https://rebalance-experience.fun/es/prenota.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/prenota.html"/>
+  </url>
+
+  <!-- ========================
+       PROMOTION (Surf) PAGES
+       ======================== -->
+  <url>
+    <loc>https://rebalance-experience.fun/promotion.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/promotion.html"/>
+  </url>
+
+  <url>
+    <loc>https://rebalance-experience.fun/en/promotion.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/promotion.html"/>
+  </url>
+
+  <url>
+    <loc>https://rebalance-experience.fun/es/promotion.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://rebalance-experience.fun/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebalance-experience.fun/en/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rebalance-experience.fun/es/promotion.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rebalance-experience.fun/promotion.html"/>
+  </url>
+
+</urlset>

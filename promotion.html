@@ -201,6 +201,38 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // ── Surf form submission via mailto ─────────────────
+        const surfForm = document.getElementById('surfForm');
+        if (surfForm) {
+            surfForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const form = e.target;
+
+                const nome = form.nome.value;
+                const cognome = form.cognome.value;
+                const email = form.email.value;
+                const telefono = form.telefono.value;
+                const livello = form.livello.value;
+                const data = form['data-lezione'].value;
+                const partecipanti = form.partecipanti.value;
+                const messaggio = form.messaggio.value;
+
+                const subject = encodeURIComponent('Richiesta Lezione Surf — ' + nome + ' ' + cognome);
+                const body = encodeURIComponent(
+                    'Nome: ' + nome + ' ' + cognome + '\n' +
+                    'Email: ' + email + '\n' +
+                    'Telefono: ' + telefono + '\n' +
+                    'Livello: ' + livello + '\n' +
+                    'Data preferita: ' + (data || 'Da concordare') + '\n' +
+                    'Partecipanti: ' + partecipanti + '\n' +
+                    'Note: ' + (messaggio || 'Nessuna') + '\n'
+                );
+
+                window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;
+            });
+        }
+    </script>
 </body>
 
 </html>

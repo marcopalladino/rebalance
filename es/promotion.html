@@ -198,6 +198,37 @@
     </footer>
 
     <script src="../script.js"></script>
+    <script>
+        const surfForm = document.getElementById('surfForm');
+        if (surfForm) {
+            surfForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const form = e.target;
+
+                const nome = form.nome.value;
+                const cognome = form.cognome.value;
+                const email = form.email.value;
+                const telefono = form.telefono.value;
+                const livello = form.livello.value;
+                const data = form['data-lezione'].value;
+                const partecipanti = form.partecipanti.value;
+                const messaggio = form.messaggio.value;
+
+                const subject = encodeURIComponent('Solicitud Clase de Surf — ' + nome + ' ' + cognome);
+                const body = encodeURIComponent(
+                    'Nombre: ' + nome + ' ' + cognome + '\n' +
+                    'Email: ' + email + '\n' +
+                    'Teléfono: ' + telefono + '\n' +
+                    'Nivel: ' + livello + '\n' +
+                    'Fecha preferida: ' + (data || 'Por decidir') + '\n' +
+                    'Participantes: ' + partecipanti + '\n' +
+                    'Notas: ' + (messaggio || 'Ninguna') + '\n'
+                );
+
+                window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;
+            });
+        }
+    </script>
 </body>
 
 </html>
