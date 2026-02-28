@@ -82,9 +82,7 @@
                             placeholder="Es. ho spesso mal di schiena, prima volta con questo tipo di movimento..."></textarea>
                     </div>
 
-                    <div id="formMessage"
-                        style="display:none; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-weight: 500; text-align: center;">
-                    </div>
+                    <p id="formStatus" style="text-align:center; font-weight:500; margin-bottom:12px;"></p>
 
                     <button type="submit" id="submitBtn" class="btn btn--primary btn--full">Invia Richiesta di
                         Prenotazione</button>
@@ -102,13 +100,13 @@
         <div class="container">
             <div class="footer-bottom" style="border-top: none;">
                 <p>📍 Gran Canaria, Isole Canarie</p>
-                
-            <div class="footer-lang">
-                <a href="prenota.html" title="Italiano"><span class="footer-lang-flag">🇮🇹</span> IT</a>
-                <a href="../prenota.html" title="Español"><span class="footer-lang-flag">🇪🇸</span> ES</a>
-                <a href="../en/prenota.html" title="English"><span class="footer-lang-flag">🇬🇧</span> EN</a>
-            </div>
-            <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
+
+                <div class="footer-lang">
+                    <a href="prenota.html" title="Italiano"><span class="footer-lang-flag">🇮🇹</span> IT</a>
+                    <a href="../prenota.html" title="Español"><span class="footer-lang-flag">🇪🇸</span> ES</a>
+                    <a href="../en/prenota.html" title="English"><span class="footer-lang-flag">🇬🇧</span> EN</a>
+                </div>
+                <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
@@ -143,29 +141,39 @@
             }
         });
 
-        // ── Form submission via mailto ─────────────────────────
-        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+        // ── Form submission via API ─────────────────────────
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const form = e.target;
 
-            const evento = form.evento.value;
-            const nome = form.nome.value;
-            const telefono = form.telefono.value;
-            const email = form.email.value;
-            const ospiti = form.ospiti.value;
-            const note = form.note.value;
+            const status = document.getElementById('formStatus');
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
 
-            const subject = encodeURIComponent('Prenotazione Rebalance Experience — ' + evento);
-            const body = encodeURIComponent(
-                'Evento: ' + evento + '\n' +
-                'Nome: ' + nome + '\n' +
-                'Telefono: ' + telefono + '\n' +
-                'Email: ' + email + '\n' +
-                'Partecipanti: ' + ospiti + '\n' +
-                'Note: ' + (note || 'Nessuna') + '\n'
-            );
+            status.innerText = "Invio in corso...";
+            status.style.color = "#23a6d5";
 
-            window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;
+            try {
+                const response = await fetch('http://93.44.244.94:3000/api/prenotazione', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.successo) {
+                    status.innerText = "✅ Prenotazione inviata con successo!";
+                    status.style.color = "#23d5ab";
+                    e.target.reset();
+                } else {
+                    throw new Error(result.errore);
+                }
+            } catch (err) {
+                status.innerText = "❌ Errore: " + err.message;
+                status.style.color = "#ff4444";
+            }
         });
     </script>
 </body>

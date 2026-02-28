@@ -150,6 +150,7 @@
                             placeholder="Indicaci eventuali richieste particolari..."></textarea>
                     </div>
 
+                    <p id="formStatus" style="text-align:center; font-weight:500; margin-bottom:12px;"></p>
                     <button type="submit" class="btn btn--primary btn--full">
                         📩 Invia richiesta
                     </button>
@@ -195,47 +196,54 @@
             </div>
             <div class="footer-bottom">
                 <p>📍 Gran Canaria, Isole Canarie</p>
-                
-            <div class="footer-lang">
-                <a href="promotion.html" title="Italiano"><span class="footer-lang-flag">🇮🇹</span> IT</a>
-                <a href="../promotion.html" title="Español"><span class="footer-lang-flag">🇪🇸</span> ES</a>
-                <a href="../en/promotion.html" title="English"><span class="footer-lang-flag">🇬🇧</span> EN</a>
-            </div>
-            <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
+
+                <div class="footer-lang">
+                    <a href="promotion.html" title="Italiano"><span class="footer-lang-flag">🇮🇹</span> IT</a>
+                    <a href="../promotion.html" title="Español"><span class="footer-lang-flag">🇪🇸</span> ES</a>
+                    <a href="../en/promotion.html" title="English"><span class="footer-lang-flag">🇬🇧</span> EN</a>
+                </div>
+                <p>&copy; 2026 Rebalance Experience. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
 
     <script src="../script.js"></script>
     <script>
-        // ── Surf form submission via mailto ─────────────────
+        // ── Surf form submission via API ─────────────────
         const surfForm = document.getElementById('surfForm');
         if (surfForm) {
-            surfForm.addEventListener('submit', (e) => {
+            surfForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const form = e.target;
 
-                const nome = form.nome.value;
-                const cognome = form.cognome.value;
-                const email = form.email.value;
-                const telefono = form.telefono.value;
-                const livello = form.livello.value;
-                const data = form['data-lezione'].value;
-                const partecipanti = form.partecipanti.value;
-                const messaggio = form.messaggio.value;
+                const status = document.getElementById('formStatus');
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
 
-                const subject = encodeURIComponent('Richiesta Lezione Surf — ' + nome + ' ' + cognome);
-                const body = encodeURIComponent(
-                    'Nome: ' + nome + ' ' + cognome + '\n' +
-                    'Email: ' + email + '\n' +
-                    'Telefono: ' + telefono + '\n' +
-                    'Livello: ' + livello + '\n' +
-                    'Data preferita: ' + (data || 'Da concordare') + '\n' +
-                    'Partecipanti: ' + partecipanti + '\n' +
-                    'Note: ' + (messaggio || 'Nessuna') + '\n'
-                );
+                status.innerText = "Invio in corso...";
+                status.style.color = "#23a6d5";
 
-                window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;
+                try {
+                    const response = await fetch('http://93.44.244.94:3000/api/prenotazione', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.successo) {
+                        status.innerText = "✅ Richiesta inviata con successo!";
+                        status.style.color = "#23d5ab";
+                        e.target.reset();
+                    } else {
+                        throw new Error(result.errore);
+                    }
+                } catch (err) {
+                    status.innerText = "❌ Errore: " + err.message;
+                    status.style.color = "#ff4444";
+                }
             });
         }
     </script>
