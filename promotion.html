@@ -208,18 +208,57 @@
     <script>
         const surfForm = document.getElementById('surfForm');
         if (surfForm) {
+            surfForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(e.target);
+                const raw = Object.fromEntries(formData.entries());
+
+                const nome = (raw.nome || '') + ' ' + (raw.cognome || '');
+                const subject = encodeURIComponent('Clase de Surf - Rebalance Experience');
+                const body = encodeURIComponent(
+                    'Nombre: ' + nome + '\n' +
+                    'Email: ' + (raw.email || '') + '\n' +
+                    'Teléfono: ' + (raw.telefono || '') + '\n' +
+                    'Nivel: ' + (raw.livello || '') + '\n' +
+                    'Fecha preferida: ' + (raw['data-lezione'] || '') + '\n' +
+                    'Participantes: ' + (raw.partecipanti || '') + '\n' +
+                    'Notas: ' + (raw.messaggio || '')
+                );
+
+                window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;
+            });
+        }
+
+        /* ── OLD: Surf form submission via API (commented out) ─────────────────
+        const surfForm = document.getElementById('surfForm');
+        if (surfForm) {
             surfForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
                 const status = document.getElementById('formStatus');
                 const formData = new FormData(e.target);
-                const data = Object.fromEntries(formData.entries());
+                const raw = Object.fromEntries(formData.entries());
+
+                // Trasforma i campi del form per renderli compatibili con /api/prenotazione
+                const data = {
+                    nome: (raw.nome || '') + ' ' + (raw.cognome || ''),
+                    email: raw.email,
+                    telefono: raw.telefono || 'Non specificato',
+                    evento: 'Lezione di Surf',
+                    ospiti: raw.partecipanti || '1',
+                    note: [
+                        raw.livello ? 'Livello: ' + raw.livello : '',
+                        raw['data-lezione'] ? 'Data preferita: ' + raw['data-lezione'] : '',
+                        raw.messaggio || ''
+                    ].filter(Boolean).join(' | ')
+                };
 
                 status.innerText = "Envío en curso...";
                 status.style.color = "#23a6d5";
 
                 try {
-                    const response = await fetch('http://93.44.244.96:3000/api/prenotazione', {
+                    const response = await fetch('https://93.44.244.96:3000/api/prenotazione', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -242,6 +281,7 @@
                 }
             });
         }
+        */
     </script>
 </body>
 

@@ -149,7 +149,27 @@
             }
         });
 
-        // ── Form submission via API ─────────────────────────
+        // ── Form submission via mailto ─────────────────────────
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const subject = encodeURIComponent('Reserva Rebalance Experience - ' + (data.evento || ''));
+            const body = encodeURIComponent(
+                'Evento: ' + (data.evento || '') + '\n' +
+                'Nombre: ' + (data.nome || '') + '\n' +
+                'Teléfono: ' + (data.telefono || '') + '\n' +
+                'Email: ' + (data.email || '') + '\n' +
+                'Participantes: ' + (data.ospiti || '') + '\n' +
+                'Notas: ' + (data.note || '')
+            );
+
+            window.location.href = 'mailto:info@rebalance-experience.fun?subject=' + subject + '&body=' + body;
+        });
+
+        /* ── OLD: Form submission via API (commented out) ─────────────────────────
         document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -183,6 +203,7 @@
                 status.style.color = "#ff4444";
             }
         });
+        */
     </script>
 </body>
 
