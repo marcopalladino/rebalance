@@ -52,6 +52,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    overflow-x: hidden;
 }
 
 body {
@@ -1568,7 +1569,7 @@ ul {
     .nav {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: -300px;
         width: 280px;
         height: 100vh;
         background: var(--white);
@@ -1681,6 +1682,29 @@ ul {
     .lang-link {
         font-size: 14px;
         padding: 10px 16px;
+    }
+
+    /* Stacking dei pulsanti CTA su mobile */
+    .hero-ctas,
+    .volantino-ctas,
+    .eventi-cta {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 340px;
+        margin: 0 auto;
+        gap: 12px;
+    }
+
+    .hero-ctas .btn,
+    .volantino-ctas .btn,
+    .eventi-cta .btn {
+        width: 100%;
+        justify-content: center;
+        white-space: normal;
+        text-align: center;
+        padding: 12px 20px;
+        font-size: 14px;
     }
 }
 
@@ -1888,7 +1912,8 @@ ul {
 
     .gallery-slider-wrapper {
         border-radius: var(--radius-md);
-        margin: 0 16px;
+        margin: 0 auto;
+        width: calc(100% - 32px);
         aspect-ratio: 4 / 3;
     }
 
