@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebalance Experience — Check-in & Scanner QR</title>
+    <meta name="description" content="Scanner QR statico per la registrazione e il check-in dei partecipanti agli eventi Rebalance Experience.">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- QR Code Scanning Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <style>
+        :root {
+            --teal: #1a8a7d;
+            --teal-dark: #136b61;
+            --teal-light: #e0f5f2;
+            --gold: #e8a838;
+            --gold-light: #fdf3e0;
+            --coral: #c94a2a;
+            --sand: #faf6f0;
+            --sand-dark: #f0e8da;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f1f3f5;
+            --gray-200: #e9ecef;
+            --gray-400: #ced4da;
+            --gray-600: #868e96;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--sand);
+            color: var(--gray-900);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .header-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--teal-dark);
+        }
+
+        .btn-back {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--teal);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--teal-light);
+            background: var(--teal-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Scanner Styling */
+        .scanner-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .scanner-view-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1 / 1;
+            background: #111;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+            border: 3px solid var(--teal);
+        }
+
+        #reader {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Override Library default HTML5 video bounds */
+        #reader video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+
+        /* Custom Scanning Overlay Mask */
+        .scanner-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .scanner-laser {
+            position: absolute;
+            width: 70%;
+            height: 2px;
+            background: var(--coral);
+            box-shadow: 0 0 12px var(--coral), 0 0 20px var(--coral);
+            animation: scanningLaser 2s ease-in-out infinite;
+        }
+
+        @keyframes scanningLaser {
+            0%, 100% {
+                top: 20%;
+            }
+            50% {
+                top: 80%;
+            }
+        }
+
+        .scanner-target-box {
+            width: 70%;
+            height: 70%;
+            border: 2px dashed rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-sm);
+            box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.55);
+            position: relative;
+        }
+
+        .scanner-target-box::before,
+        .scanner-target-box::after,
+        .scanner-target-box > span::before,
+        .scanner-target-box > span::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-color: var(--gold);
+            border-style: solid;
+            pointer-events: none;
+        }
+
+        /* Top Left Corner */
+        .scanner-target-box::before {
+            top: -3px;
+            left: -3px;
+            border-width: 4px 0 0 4px;
+        }
+
+        /* Top Right Corner */
+        .scanner-target-box::after {
+            top: -3px;
+            right: -3px;
+            border-width: 4px 4px 0 0;
+        }
+
+        /* Bottom Left Corner */
+        .scanner-target-box > span::before {
+            bottom: -3px;
+            left: -3px;
+            border-width: 0 0 4px 4px;
+        }
+
+        /* Bottom Right Corner */
+        .scanner-target-box > span::after {
+            bottom: -3px;
+            right: -3px;
+            border-width: 0 4px 4px 0;
+        }
+
+        /* Scanner Controls */
+        .scanner-controls {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .select-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .select-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-200);
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px var(--teal-light);
+        }
+
+        .btn-group-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--teal);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--teal-dark);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+            color: var(--gray-900);
+        }
+
+        .btn-gold:hover {
+            background-color: #d49530;
+        }
+
+        .btn-danger {
+            background-color: transparent;
+            color: var(--coral);
+            border-color: var(--coral);
+        }
+
+        .btn-danger:hover {
+            background-color: var(--coral);
+            color: var(--white);
+        }
+
+        .btn-stop {
+            background-color: var(--coral);
+            color: var(--white);
+        }
+
+        .btn-stop:hover {
+            background-color: #a33b21;
+        }
+
+        /* Scanned List Styling */
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gray-100);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .counter-badge {
+            background-color: var(--teal-light);
+            color: var(--teal-dark);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .participants-list {
+            max-height: 320px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 4px;
+        }
+
+        /* Custom Scrollbar for list */
+        .participants-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .participants-list::-webkit-scrollbar-track {
+            background: var(--gray-50);
+            border-radius: 3px;
+        }
+        .participants-list::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: 3px;
+        }
+
+        .participant-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: var(--gray-50);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-100);
+            transition: var(--transition);
+        }
+
+        .participant-item:hover {
+            background-color: var(--teal-light);
+            border-color: rgba(26, 138, 125, 0.2);
+        }
+
+        .participant-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .participant-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 1rem;
+        }
+
+        .participant-meta {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--gray-600);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .btn-delete:hover {
+            color: var(--coral);
+            background-color: rgba(201, 74, 42, 0.1);
+        }
+
+        .no-participants {
+            text-align: center;
+            color: var(--gray-600);
+            font-style: italic;
+            padding: 32px 0;
+        }
+
+        /* Form Manual Add Styling */
+        .manual-form-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .input-group {
+            flex: 1;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px var(--teal-light);
+        }
+
+        /* Action Buttons Area */
+        .action-area {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366 !important;
+            color: var(--white) !important;
+            font-size: 1.1rem;
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 700;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1fb855 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+        }
+
+        .whatsapp-icon {
+            font-size: 1.4rem;
+        }
+
+        footer.site-footer {
+            text-align: center;
+            padding: 24px 16px;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            background-color: var(--white);
+            border-top: 1px solid var(--gray-200);
+            margin-top: auto;
+        }
+
+        /* Scanning State feedback overlay */
+        .scan-feedback {
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 138, 125, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease-out;
+            z-index: 10;
+        }
+
+        .scan-feedback.active {
+            opacity: 1;
+        }
+
+        .scan-feedback-box {
+            background: var(--white);
+            padding: 20px 32px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .scan-feedback.active .scan-feedback-box {
+            transform: scale(1);
+        }
+
+        .scan-feedback-check {
+            font-size: 2.5rem;
+            color: var(--teal);
+            margin-bottom: 8px;
+        }
+
+        .scan-feedback-name {
+            font-weight: 700;
+            color: var(--gray-900);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive layout */
+        @media(max-width: 550px) {
+            .manual-form-group {
+                flex-direction: column;
+            }
+            .btn-group-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-inner">
+            <a href="../index.html" class="logo-link">
+                <img src="../assets/logo.png" alt="Rebalance Experience Logo" class="logo-img">
+            </a>
+            <h1 class="header-title">Check-in Manager</h1>
+            <a href="../index.html" class="btn-back">‹ Torna al Sito</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Scanner Card -->
+        <div class="card">
+            <h2 class="card-title">📷 Scansione QR Code</h2>
+            <div class="scanner-section">
+                <!-- Select Camera dropdown -->
+                <div class="scanner-controls select-group">
+                    <label for="cameraSelect">Seleziona Fotocamera:</label>
+                    <select id="cameraSelect">
+                        <option value="">Caricamento fotocamere...</option>
+                    </select>
+                </div>
+
+                <!-- Video Scan Viewport -->
+                <div class="scanner-view-wrapper">
+                    <!-- Scan feedback flash overlay -->
+                    <div class="scan-feedback" id="scanFeedback">
+                        <div class="scan-feedback-box">
+                            <div class="scan-feedback-check">✓</div>
+                            <div class="scan-feedback-name" id="feedbackName">Nome</div>
+                            <div style="font-size: 0.8rem; color: var(--gray-600); margin-top: 4px;">Registrato con successo</div>
+                        </div>
+                    </div>
+
+                    <!-- Target mask overlay -->
+                    <div class="scanner-overlay" id="scannerOverlay" style="display: none;">
+                        <div class="scanner-laser"></div>
+                        <div class="scanner-target-box">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <!-- Reader target element -->
+                    <div id="reader"></div>
+                </div>
+
+                <!-- Scanner Control Buttons -->
+                <div class="scanner-controls">
+                    <div class="btn-group-row">
+                        <button class="btn btn-primary" id="btnStart">🎥 Avvia Fotocamera</button>
+                        <button class="btn btn-stop" id="btnStop" style="display: none;">⏹️ Disattiva</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Participants List Card -->
+        <div class="card">
+            <div class="list-header">
+                <h2 class="card-title" style="margin-bottom: 0;">👥 Partecipanti</h2>
+                <span class="counter-badge" id="counterBadge">0 registrati</span>
+            </div>
+
+            <!-- Attending attendees list -->
+            <div class="participants-list" id="participantsList">
+                <div class="no-participants">Nessun partecipante registrato. Avvia lo scanner QR o inserisci un nome manualmente.</div>
+            </div>
+        </div>
+
+        <!-- Manual Entry & Actions Card -->
+        <div class="card">
+            <h2 class="card-title">✍️ Inserimento Manuale</h2>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <form id="manualForm" onsubmit="event.preventDefault(); handleManualAdd();">
+                    <div class="manual-form-group">
+                        <div class="input-group">
+                            <input type="text" id="manualName" placeholder="Nome e Cognome partecipante" required autocomplete="off">
+                        </div>
+                        <button type="submit" class="btn btn-gold" style="flex: 0 0 auto;">➕ Aggiungi</button>
+                    </div>
+                </form>
+
+                <div class="action-area">
+                    <button onclick="sendWhatsApp()" class="whatsapp-btn" id="btnWhatsapp">
+                        <span class="whatsapp-icon">💬</span> Invia la Lista via WhatsApp
+                    </button>
+                    <button onclick="confirmReset()" class="btn btn-danger" style="margin-top: 8px;">🗑️ Svuota la Lista</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Rebalance Experience. Check-in manager offline statico.</p>
+    </footer>
+
+    <!-- Logic Script -->
+    <script type="text/javascript">
+        // Page state variables
+        let participants = JSON.parse(localStorage.getItem('rebalance_participants')) || [];
+        let html5QrCode = null;
+        let activeCameraId = null;
+        let isScannerRunning = false;
+
+        // Elements
+        const cameraSelect = document.getElementById('cameraSelect');
+        const btnStart = document.getElementById('btnStart');
+        const btnStop = document.getElementById('btnStop');
+        const scannerOverlay = document.getElementById('scannerOverlay');
+        const participantsList = document.getElementById('participantsList');
+        const counterBadge = document.getElementById('counterBadge');
+        const scanFeedback = document.getElementById('scanFeedback');
+        const feedbackName = document.getElementById('feedbackName');
+
+        // On DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderParticipants();
+            initCameraList();
+        });
+
+        // Initialize Camera Options dropdown
+        function initCameraList() {
+            Html5Qrcode.getCameras().then(devices => {
+                cameraSelect.innerHTML = '';
+                if (devices && devices.length) {
+                    devices.forEach((device, index) => {
+                        const option = document.createElement('option');
+                        option.value = device.id;
+                        // Better labels for cameras
+                        let label = device.label || `Camera ${index + 1}`;
+                        if (label.toLowerCase().includes('back') || label.toLowerCase().includes('retro')) {
+                            label += ' (Posteriore - Consigliata) 📱';
+                        } else if (label.toLowerCase().includes('front') || label.toLowerCase().includes('fronte')) {
+                            label += ' (Frontale) 🤳';
+                        }
+                        option.textContent = label;
+                        cameraSelect.appendChild(option);
+                    });
+                    
+                    // Prefer back camera if available
+                    const backCam = devices.find(device => 
+                        device.label.toLowerCase().includes('back') || 
+                        device.label.toLowerCase().includes('retro') ||
+                        device.label.toLowerCase().includes('environment')
+                    );
+                    if (backCam) {
+                        cameraSelect.value = backCam.id;
+                    }
+                } else {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Nessuna fotocamera trovata 🚫';
+                    cameraSelect.appendChild(option);
+                }
+            }).catch(err => {
+                console.error("Errore recupero fotocamere", err);
+                cameraSelect.innerHTML = '<option value="">Autorizzazione fotocamera negata 🔒</option>';
+            });
+        }
+
+        // Add scan visual success flash
+        function triggerScanFeedback(name) {
+            feedbackName.textContent = name;
+            scanFeedback.classList.add('active');
+            setTimeout(() => {
+                scanFeedback.classList.remove('active');
+            }, 1400);
+        }
+
+        // Add Participant name to list
+        function addParticipant(name) {
+            name = name.trim();
+            if (!name) return;
+
+            // Check duplicate scans
+            if (participants.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+                // If it is a repeat scan, we play a notification sound/vibe or alert (but no block)
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                alert(`⚠️ Attenzione: "${name}" è già registrato nella lista.`);
+                return;
+            }
+
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            participants.push({
+                name: name,
+                time: timestamp
+            });
+
+            // Save state
+            localStorage.setItem('rebalance_participants', JSON.stringify(participants));
+            
+            // UI feedback
+            if (navigator.vibrate) navigator.vibrate(150);
+            triggerScanFeedback(name);
+            renderParticipants();
+        }
+
+        // Manual addition helper
+        function handleManualAdd() {
+            const input = document.getElementById('manualName');
+            const name = input.value;
+            if (name.trim()) {
+                addParticipant(name);
+                input.value = '';
+            }
+        }
+
+        // Delete participant
+        function deleteParticipant(index) {
+            if (confirm(`Rimuovere "${participants[index].name}" dalla lista?`)) {
+                participants.splice(index, 1);
+                localStorage.setItem('rebalance_participants', JSON.stringify(participants));
+                renderParticipants();
+            }
+        }
+
+        // Clear attendees
+        function confirmReset() {
+            if (participants.length === 0) {
+                alert("La lista è già vuota.");
+                return;
+            }
+            if (confirm("Sei sicuro di voler SVUOTARE COMPLETAMENTE la lista dei partecipanti? Questa azione non si può annullare.")) {
+                participants = [];
+                localStorage.removeItem('rebalance_participants');
+                renderParticipants();
+            }
+        }
+
+        // Render List elements
+        function renderParticipants() {
+            counterBadge.textContent = `${participants.length} registrati`;
+            
+            if (participants.length === 0) {
+                participantsList.innerHTML = `
+                    <div class="no-participants">
+                        Nessun partecipante registrato. Avvia lo scanner QR o inserisci un nome manualmente.
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort participants: last added at the top
+            const reversedList = [...participants].reverse();
+
+            participantsList.innerHTML = reversedList.map((p, idx) => {
+                // Map reversed list index back to original index
+                const originalIndex = participants.length - 1 - idx;
+                return `
+                    <div class="participant-item">
+                        <div class="participant-info">
+                            <span class="participant-name">${escapeHtml(p.name)}</span>
+                            <span class="participant-meta">🕐 Registrato alle ${p.time}</span>
+                        </div>
+                        <button class="btn-delete" onclick="deleteParticipant(${originalIndex})" aria-label="Elimina">🗑️</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Helper escape HTML strings
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>'"]/g, function(m) { return map[m]; });
+        }
+
+        // Start Scanner
+        btnStart.addEventListener('click', () => {
+            const selectedCameraId = cameraSelect.value;
+            if (!selectedCameraId) {
+                alert("Seleziona una fotocamera valida.");
+                return;
+            }
+
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("reader");
+            }
+
+            const config = {
+                fps: 10,
+                qrbox: function(width, height) {
+                    // Make box 70% of viewport width
+                    const size = Math.min(width, height) * 0.7;
+                    return { width: size, height: size };
+                }
+            };
+
+            btnStart.disabled = true;
+            btnStart.textContent = "Avvio in corso...";
+
+            html5QrCode.start(
+                selectedCameraId,
+                config,
+                (decodedText, decodedResult) => {
+                    // Success callback
+                    addParticipant(decodedText);
+                },
+                (errorMessage) => {
+                    // Verbose debug scanning logs, ignore to keep console clean
+                }
+            ).then(() => {
+                isScannerRunning = true;
+                btnStart.style.display = 'none';
+                btnStop.style.display = 'inline-flex';
+                scannerOverlay.style.display = 'flex';
+                btnStart.disabled = false;
+                btnStart.textContent = "🎥 Avvia Fotocamera";
+            }).catch(err => {
+                console.error("Errore di avvio scanner camera", err);
+                alert("Impossibile accedere alla fotocamera. Assicurati di aver concesso le autorizzazioni e che nessun'altra app la stia utilizzando.");
+                btnStart.disabled = false;
+                btnStart.textContent = "🎥 Avvia Fotocamera";
+            });
+        });
+
+        // Stop Scanner
+        btnStop.addEventListener('click', () => {
+            if (html5QrCode && isScannerRunning) {
+                btnStop.disabled = true;
+                btnStop.textContent = "Disattivazione...";
+                
+                html5QrCode.stop().then(() => {
+                    isScannerRunning = false;
+                    btnStop.style.display = 'none';
+                    btnStart.style.display = 'inline-flex';
+                    scannerOverlay.style.display = 'none';
+                    btnStop.disabled = false;
+                    btnStop.textContent = "⏹️ Disattiva";
+                }).catch(err => {
+                    console.error("Errore di arresto scanner camera", err);
+                    btnStop.disabled = false;
+                    btnStop.textContent = "⏹️ Disattiva";
+                });
+            }
+        });
+
+        // Format and Share on WhatsApp
+        function sendWhatsApp() {
+            if (participants.length === 0) {
+                alert("Nessun nome registrato nella lista dei partecipanti.");
+                return;
+            }
+
+            let text = "📋 *Lista Check-in Rebalance Experience*\n";
+            text += `📅 *Data:* ${new Date().toLocaleDateString('it-IT')}\n`;
+            text += `👥 *Partecipanti Totali:* ${participants.length}\n\n`;
+
+            participants.forEach((p, index) => {
+                text += `✅ ${index + 1}. *${p.name}* (ore ${p.time})\n`;
+            });
+
+            text += "\n_Lista generata tramite Rebalance Check-in Manager._";
+
+            // Generate WhatsApp url
+            const whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+
+</html>
