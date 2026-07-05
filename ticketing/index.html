@@ -576,6 +576,40 @@
             font-size: 1.1rem;
         }
 
+        /* QR Code Links Card Styles */
+        .qr-links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .qr-link-group h4 {
+            font-size: 0.95rem;
+            color: var(--teal-dark);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .qr-link-group ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .qr-link-group a {
+            font-size: 0.9rem;
+            color: var(--teal);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .qr-link-group a:hover {
+            color: var(--teal-dark);
+            text-decoration: underline;
+        }
+
         /* Responsive layout */
         @media(max-width: 550px) {
             .manual-form-group {
@@ -583,6 +617,10 @@
             }
             .btn-group-row {
                 flex-direction: column;
+            }
+            .qr-links-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
         }
     </style>
@@ -677,6 +715,33 @@
                         <span class="whatsapp-icon">💬</span> Invia la Lista via WhatsApp
                     </button>
                     <button onclick="confirmReset()" class="btn btn-danger" style="margin-top: 8px;">🗑️ Svuota la Lista</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Codes Links Card -->
+        <div class="card">
+            <h2 class="card-title">🔗 QR Code Utili</h2>
+            <div class="qr-links-grid">
+                <div class="qr-link-group">
+                    <h4>Pagine Pubbliche:</h4>
+                    <ul>
+                        <li><a href="../index.html" target="_blank">🏠 Sito Home (Spagnolo)</a></li>
+                        <li><a href="../it/index.html" target="_blank">🏠 Sito Home (Italiano)</a></li>
+                        <li><a href="../en/index.html" target="_blank">🏠 Sito Home (Inglese)</a></li>
+                        <li><a href="../prenota.html" target="_blank">📅 Pagina Prenotazione</a></li>
+                    </ul>
+                </div>
+                <div class="qr-link-group">
+                    <h4>Immagini QR Code (Download/Visualizza):</h4>
+                    <ul>
+                        <li><a href="../qrcodes/website_home.png" target="_blank">📥 QR Home Page</a></li>
+                        <li><a href="../qrcodes/website_booking.png" target="_blank">📥 QR Prenotazioni</a></li>
+                        <li><a href="ticket_rebalance_paid.png" target="_blank">📥 QR rebalancePaid</a></li>
+                        <li><a href="ticket_rebalance_sub.png" target="_blank">📥 QR rebalanceSub</a></li>
+                        <li><a href="../qrcodes/ticket_mario_rossi.png" target="_blank">📥 QR Test: Mario Rossi</a></li>
+                        <li><a href="../qrcodes/ticket_elena_bianchi.png" target="_blank">📥 QR Test: Elena Bianchi</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
