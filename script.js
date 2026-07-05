@@ -358,4 +358,128 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ========================
+    // 10. GALLERY SLIDER
+    // ========================
+    const galleryTrack = document.getElementById('galleryTrack');
+    const galleryPrev = document.getElementById('galleryPrev');
+    const galleryNext = document.getElementById('galleryNext');
+    const galleryDotsContainer = document.getElementById('galleryDots');
+
+    if (galleryTrack && galleryPrev && galleryNext && galleryDotsContainer) {
+        const slides = galleryTrack.querySelectorAll('.gallery-slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+        let autoplayInterval;
+        let isTransitioning = false;
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = `gallery-dot ${index === 0 ? 'active' : ''}`;
+            dot.setAttribute('aria-label', `Foto ${index + 1}`);
+            dot.addEventListener('click', () => goToSlide(index));
+            galleryDotsContainer.appendChild(dot);
+        });
+
+        // Add counter badge
+        const counter = document.createElement('div');
+        counter.className = 'gallery-counter';
+        counter.id = 'galleryCounter';
+        counter.textContent = `1 / ${totalSlides}`;
+        galleryTrack.parentElement.appendChild(counter);
+
+        function updateDots() {
+            const dots = galleryDotsContainer.querySelectorAll('.gallery-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+            counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        function goToSlide(index) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            currentSlide = index;
+            galleryTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateDots();
+            setTimeout(() => { isTransitioning = false; }, 600);
+        }
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
+
+        galleryNext.addEventListener('click', () => {
+            nextSlide();
+            resetAutoplay();
+        });
+
+        galleryPrev.addEventListener('click', () => {
+            prevSlide();
+            resetAutoplay();
+        });
+
+        // Autoplay
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplayInterval);
+            startAutoplay();
+        }
+
+        startAutoplay();
+
+        // Pause on hover
+        const wrapper = galleryTrack.parentElement;
+        wrapper.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+        wrapper.addEventListener('mouseleave', startAutoplay);
+
+        // Touch / swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const minSwipeDistance = 50;
+
+        wrapper.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            clearInterval(autoplayInterval);
+        }, { passive: true });
+
+        wrapper.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > minSwipeDistance) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            startAutoplay();
+        }, { passive: true });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const gallerySection = document.getElementById('galeria');
+            if (!gallerySection) return;
+            const rect = gallerySection.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            if (!isVisible) return;
+
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                resetAutoplay();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                resetAutoplay();
+            }
+        });
+    }
+
 });
