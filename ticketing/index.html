@@ -576,6 +576,102 @@
             font-size: 1.1rem;
         }
 
+        /* Name Input Modal */
+        .name-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .name-modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .name-modal {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .name-modal-overlay.active .name-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .name-modal-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--gray-900);
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .name-modal-ticket {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--teal);
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: var(--teal-light);
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            width: auto;
+        }
+
+        .name-modal-ticket-wrap {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .name-modal-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .name-modal-fields input {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .name-modal-fields input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px var(--teal-light);
+        }
+
+        .name-modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .name-modal-buttons .btn {
+            flex: 1;
+            padding: 14px 20px;
+            font-size: 1rem;
+        }
+
         /* QR Code Links Card Styles */
         .qr-links-grid {
             display: grid;
@@ -748,6 +844,24 @@
         </div>
     </main>
 
+    <!-- Name Input Modal -->
+    <div class="name-modal-overlay" id="nameModal">
+        <div class="name-modal">
+            <h3 class="name-modal-title">👤 Registrazione Partecipante</h3>
+            <div class="name-modal-ticket-wrap">
+                <span class="name-modal-ticket" id="modalTicketType">Tipo Ticket</span>
+            </div>
+            <div class="name-modal-fields">
+                <input type="text" id="modalNome" placeholder="Nome" autocomplete="off">
+                <input type="text" id="modalCognome" placeholder="Cognome" autocomplete="off">
+            </div>
+            <div class="name-modal-buttons">
+                <button class="btn btn-danger" id="modalCancel" onclick="closeNameModal()">❌ Annulla</button>
+                <button class="btn btn-primary" id="modalConfirm" onclick="confirmNameModal()">✅ Registra</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="site-footer">
         <p>&copy; 2026 Rebalance Experience. Check-in manager offline statico.</p>
     </footer>
@@ -825,22 +939,89 @@
             }, 1400);
         }
 
+        // ---- Name Modal Logic ----
+        let pendingTicketType = '';
+        const nameModal = document.getElementById('nameModal');
+        const modalNome = document.getElementById('modalNome');
+        const modalCognome = document.getElementById('modalCognome');
+        const modalTicketType = document.getElementById('modalTicketType');
+
+        // Map QR values to human-readable ticket labels
+        function getTicketLabel(qrValue) {
+            const labels = {
+                'rebalancePaid': '💳 Lezione Singola Pagata',
+                'rebalanceSub': '🔄 Abbonamento',
+                'FREE_first_time': '🎁 Prima Lezione Gratuita'
+            };
+            return labels[qrValue] || ('🎫 ' + qrValue);
+        }
+
+        function openNameModal(ticketType) {
+            pendingTicketType = ticketType;
+            modalTicketType.textContent = getTicketLabel(ticketType);
+            modalNome.value = '';
+            modalCognome.value = '';
+            nameModal.classList.add('active');
+            // Focus on the first field after animation
+            setTimeout(() => modalNome.focus(), 300);
+        }
+
+        function closeNameModal() {
+            nameModal.classList.remove('active');
+            pendingTicketType = '';
+        }
+
+        function confirmNameModal() {
+            const nome = modalNome.value.trim();
+            const cognome = modalCognome.value.trim();
+
+            if (!nome || !cognome) {
+                // Shake animation feedback
+                if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+                if (!nome) modalNome.style.borderColor = 'var(--coral)';
+                if (!cognome) modalCognome.style.borderColor = 'var(--coral)';
+                setTimeout(() => {
+                    modalNome.style.borderColor = '';
+                    modalCognome.style.borderColor = '';
+                }, 1500);
+                return;
+            }
+
+            const fullName = nome + ' ' + cognome;
+            addParticipant(fullName, pendingTicketType);
+            closeNameModal();
+        }
+
+        // Allow Enter key to confirm modal
+        document.addEventListener('keydown', (e) => {
+            if (nameModal.classList.contains('active') && e.key === 'Enter') {
+                e.preventDefault();
+                confirmNameModal();
+            }
+            if (nameModal.classList.contains('active') && e.key === 'Escape') {
+                e.preventDefault();
+                closeNameModal();
+            }
+        });
+
         // Add Participant name to list
-        function addParticipant(name) {
+        function addParticipant(name, ticketType) {
             name = name.trim();
             if (!name) return;
 
-            // Check duplicate scans
-            if (participants.some(p => p.name.toLowerCase() === name.toLowerCase())) {
-                // If it is a repeat scan, we play a notification sound/vibe or alert (but no block)
+            ticketType = ticketType || 'Manuale';
+
+            // Check for exact duplicate (same name + same ticket type)
+            if (participants.some(p => p.name.toLowerCase() === name.toLowerCase() && p.ticketType === ticketType)) {
                 if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-                alert(`⚠️ Attenzione: "${name}" è già registrato nella lista.`);
+                alert(`⚠️ Attenzione: "${name}" con ticket "${getTicketLabel(ticketType)}" è già registrato nella lista.`);
                 return;
             }
 
             const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             participants.push({
                 name: name,
+                ticketType: ticketType,
                 time: timestamp
             });
 
@@ -858,7 +1039,7 @@
             const input = document.getElementById('manualName');
             const name = input.value;
             if (name.trim()) {
-                addParticipant(name);
+                addParticipant(name, 'Manuale');
                 input.value = '';
             }
         }
@@ -904,11 +1085,12 @@
             participantsList.innerHTML = reversedList.map((p, idx) => {
                 // Map reversed list index back to original index
                 const originalIndex = participants.length - 1 - idx;
+                const ticketLabel = p.ticketType && p.ticketType !== 'Manuale' ? getTicketLabel(p.ticketType) : '✍️ Manuale';
                 return `
                     <div class="participant-item">
                         <div class="participant-info">
                             <span class="participant-name">${escapeHtml(p.name)}</span>
-                            <span class="participant-meta">🕐 Registrato alle ${p.time}</span>
+                            <span class="participant-meta">${ticketLabel} · 🕐 ${p.time}</span>
                         </div>
                         <button class="btn-delete" onclick="deleteParticipant(${originalIndex})" aria-label="Elimina">🗑️</button>
                     </div>
@@ -956,8 +1138,11 @@
                 selectedCameraId,
                 config,
                 (decodedText, decodedResult) => {
-                    // Success callback
-                    addParticipant(decodedText);
+                    // Success callback: open modal to ask for name
+                    // Only open if modal is not already showing
+                    if (!nameModal.classList.contains('active')) {
+                        openNameModal(decodedText);
+                    }
                 },
                 (errorMessage) => {
                     // Verbose debug scanning logs, ignore to keep console clean
@@ -1010,7 +1195,8 @@
             text += `👥 *Partecipanti Totali:* ${participants.length}\n\n`;
 
             participants.forEach((p, index) => {
-                text += `✅ ${index + 1}. *${p.name}* (ore ${p.time})\n`;
+                const ticketInfo = p.ticketType && p.ticketType !== 'Manuale' ? ` [${p.ticketType}]` : '';
+                text += `✅ ${index + 1}. *${p.name}*${ticketInfo} (ore ${p.time})\n`;
             });
 
             text += "\n_Lista generata tramite Rebalance Check-in Manager._";

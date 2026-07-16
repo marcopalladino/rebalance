@@ -2222,3 +2222,53 @@ button:focus-visible {
     outline: 3px solid var(--teal);
     outline-offset: 2px;
 }
+
+/* --- Footer Colaboración Compassion --- */
+.footer-col--colaboracion {
+    border-left: 2px solid rgba(255, 255, 255, 0.15);
+    padding-left: 1.5rem;
+}
+
+.footer-col--colaboracion h4 {
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+}
+
+.footer-colaboracion-text {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.85rem;
+    font-style: italic;
+}
+
+.footer-colaboracion-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gold);
+    color: var(--gray-900) !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: var(--transition);
+    letter-spacing: 0.02em;
+}
+
+.footer-colaboracion-link:hover {
+    background: #f0b840;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(232, 168, 56, 0.4);
+}
+
+@media (max-width: 767px) {
+    .footer-col--colaboracion {
+        border-left: none;
+        border-top: 2px solid rgba(255, 255, 255, 0.15);
+        padding-left: 0;
+        padding-top: 1.25rem;
+        margin-top: 0.5rem;
+    }
+}
