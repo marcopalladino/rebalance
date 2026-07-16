@@ -376,6 +376,40 @@
       letter-spacing: 0.03em;
     }
 
+    /* ===== WhatsApp CTA Button ===== */
+    .cta-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3.5mm;
+      background: linear-gradient(135deg, #25d366 0%, #128c4e 100%);
+      color: white;
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12pt;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 4mm 12mm;
+      border-radius: 50px;
+      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+      margin: 4mm auto 5mm;
+      width: fit-content;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cta-whatsapp .wa-icon {
+      font-size: 16pt;
+    }
+
+    .cta-whatsapp .wa-sub {
+      font-size: 7.5pt;
+      font-weight: 400;
+      opacity: 0.88;
+      display: block;
+      margin-top: 1px;
+    }
+
     /* ===== Footer ===== */
     .footer-text {
       text-align: center;
@@ -506,6 +540,15 @@
         </a>
       </div>
     </div>
+
+    <!-- WhatsApp CTA Button -->
+    <a href="https://wa.me/34642468566?text=Hola!+Deseo+reservar+una+prueba+gratuita+de+Rebalance+Experience" target="_blank" class="cta-whatsapp">
+      <span class="wa-icon">💬</span>
+      <span>
+        Reservar por WhatsApp
+        <span class="wa-sub">Book via WhatsApp</span>
+      </span>
+    </a>
 
     <!-- Footer -->
     <p class="footer-text">Rebalance Experience · Tu bienestar, nuestra misión · Your wellness, our mission</p>
